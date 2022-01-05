@@ -34,7 +34,7 @@ public class HomeController {
         if(idrates != null){
             for(String idrateStr : idrates){
                 int idrate = Integer.parseInt(idrateStr);
-                System.out.println(idrate);
+                
             }
         }
         return "redirect:/test";
