@@ -11,6 +11,11 @@ import java.util.Map;
 @Controller
 public class HomeController {
 
+    @GetMapping("/")
+    public String mainPage(){
+        return "/";
+    }
+
     @GetMapping("/helloPage")
     public String homePage(@RequestParam(name="name", required=false, defaultValue="World") String name, Map<String, Object> model) {
         model.put("user", name);
