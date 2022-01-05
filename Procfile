@@ -1,1 +1,0 @@
-web: java -jar target/collectionsProject-1.0-SNAPSHOT.jar
