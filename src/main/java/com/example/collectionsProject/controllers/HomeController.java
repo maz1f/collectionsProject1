@@ -13,19 +13,19 @@ public class HomeController {
 
     @GetMapping("/")
     public String mainPage(){
-        return "/";
+        return "";
     }
 
     @GetMapping("/helloPage")
     public String homePage(@RequestParam(name="name", required=false, defaultValue="World") String name, Map<String, Object> model) {
         model.put("user", name);
-        return "/helloPage";
+        return "helloPage";
     }
 
     @PostMapping("/helloPage")
     public String getName(@RequestParam String name, Map<String,Object> model) {
         model.put("user", name);
-        return "/helloPage";
+        return "helloPage";
     }
 
     @PostMapping("/test")
@@ -34,14 +34,14 @@ public class HomeController {
         if(idrates != null){
             for(String idrateStr : idrates){
                 int idrate = Integer.parseInt(idrateStr);
-                
+
             }
         }
-        return "redirect:/test";
+        return "redirect:test";
     }
 
     @GetMapping("/test")
     public String test(Map<String, Object> model) {
-        return "/test";
+        return "test";
     }
 }
