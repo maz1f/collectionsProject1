@@ -32,10 +32,9 @@ public class HomeController {
     @PostMapping("/test")
     public String delete(@RequestParam("idChecked") List<String> idrates){
 
-
         if(idrates != null){
             if (idrates.contains("1"))
-                    return "volov";
+                    return "redirect:volov";
         }
         return "redirect:test";
 

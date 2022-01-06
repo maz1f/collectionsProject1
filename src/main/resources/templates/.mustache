@@ -6,6 +6,12 @@
 </head>
 <body>
 <div>
+    <form action="/logout" method="post">
+        <input type="submit" value="Sign Out"/>
+        <input type="hidden" name = "_csrf" value = "{{_csrf.token}}" />
+    </form>
+</div>
+<div>
     hello, world
 </div>
 <a href="helloPage">helloPage</a>
