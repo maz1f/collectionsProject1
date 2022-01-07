@@ -1,25 +1,28 @@
-<#macro login>
-    <form action="/login" method="post">
-        <div><label> User Name : <input type="text" name="username"/> </label></div>
-        <div><label> Password: <input type="password" name="password"/> </label></div>
+<#macro login path isRegistration>
+    <form action="${path}" method="post">
+        <#if isRegistration>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="text" class="form-control" name="email"/>
+            </div>
+        </#if>
+        <div class="mb-3">
+            <label class="form-label">User Name</label>
+            <input type="text" class="form-control" name="username"/>
+        </div>
+        <div class = "mb-3">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password"/>
+        </div>
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
-        <div><input type="submit" value="Sign In"/></div>
+        <button type="submit" class="btn btn-primary"><#if isRegistration>Registrate<#else>Sign In</#if></button>
+
     </form>
 </#macro>
 
 <#macro logout>
     <form action="/logout" method="post">
-        <input type="submit" value="Sign Out"/>
         <input type="hidden" name = "_csrf" value = "${_csrf.token}" />
-    </form>
-</#macro>
-
-<#macro registration>
-    <form action="/registration" method="post">
-        <div><label> Email : <input type="text" name = "email"/> </label></div>
-        <div><label> User Name : <input type="text" name="username"/> </label></div>
-        <div><label> Password: <input type="password" name="password"/> </label></div>
-        <input type="hidden" name="_csrf" value="${_csrf.token}" />
-        <div><input type="submit" value="Registrate"/></div>
+        <button type="submit" class="btn btn-primary">Sign Out</button>
     </form>
 </#macro>

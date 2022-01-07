@@ -1,37 +1,24 @@
 <#import "macroses/common.ftlh" as c>
 <@c.page>
     <form method="post">
-        <table>
-            <caption><h3>Volovs list</h3></caption>
-            <thead>
-            <tr>
-                <td><input type="checkbox" id = "selall"></td>
-                <th>Name</th>
-                <th>Lastname</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><input type="checkbox" name = "idChecked" value="1"></td>
-                <td>Artem</td>
-                <td>Volov</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name = "idChecked" value="2"></td>
-                <td>Abob</td>
-                <td>Volov</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox"name = "idChecked" value="3"></td>
-                <td>Vadim</td>
-                <td>Volov</td>
-            </tr>
-            </tbody>
-        </table>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" name = "idChecked" value="1" aria-label="...">
+                Artem Volov
+            </li>
+            <li class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" name = "idChecked" value="2" aria-label="...">
+                Vadim Volov
+            </li>
+            <li class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" name = "idChecked" value="3" aria-label="...">
+                Abob Volov
+            </li>
+        </ul>
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
-        <button type="submit">Нажмите пж</button>
+        <button type="submit" class="btn btn-primary">Tap here</button>
     </form>
-    <div>
-
+    <div class = "mt-3">
+       <h5>${message}</h5>
     </div>
 </@c.page>
