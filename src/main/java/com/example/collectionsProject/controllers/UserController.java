@@ -28,8 +28,6 @@ public class UserController {
         return "registration";
     }
 
-
-
     @PostMapping("/registration")
     public String registrate(User user, Map<String, Object> model) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
@@ -45,4 +43,9 @@ public class UserController {
         return "redirect:login";
     }
 
+    @GetMapping("/personalPage")
+    public String personPage(){
+
+        return "personalPage";
+    }
 }
