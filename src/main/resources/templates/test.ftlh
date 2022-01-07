@@ -19,6 +19,6 @@
         <button type="submit" class="btn btn-primary">Tap here</button>
     </form>
     <div class = "mt-3">
-       <h5>${message}</h5>
+        <h5>${message}</h5>
     </div>
 </@c.page>

@@ -37,10 +37,6 @@
                 <@l.logout />
             </#if>
         </div>
-
-
     </div>
-
     </div>
-
 </nav>

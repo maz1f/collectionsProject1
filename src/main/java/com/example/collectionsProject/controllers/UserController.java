@@ -44,8 +44,9 @@ public class UserController {
     }
 
     @GetMapping("/personalPage")
-    public String personPage(){
-
+    public String personPage(Map<String, Object> model){
+        Iterable<User> users = userRepo.findAll();
+        model.put("users", users);
         return "personalPage";
     }
 }
