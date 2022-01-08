@@ -42,7 +42,7 @@ public class HomeController {
 
         if(idrates != null){
             if (idrates.contains("1"))
-                    return "redirect:test?message=It's right choose";
+                return "redirect:test?message=It's right choose";
             else return "redirect:test?message=Choose Artem Volov";
         }
         return "redirect:test";

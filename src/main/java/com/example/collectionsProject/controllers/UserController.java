@@ -49,8 +49,8 @@ public class UserController {
     }
 
     @GetMapping("/personalPage")
-    public String personPage(Map<String, Object> model){
-        Iterable<Collection> collections = collectionsRepo.findAll();
+    public String personPage(@AuthenticationPrincipal User user, Map<String, Object> model){
+        Iterable<Collection> collections = collectionsRepo.findAllByOwner(user);
         model.put("collections", collections);
         return "personalPage";
     }

@@ -50,16 +50,13 @@
         </thead>
         <tbody>
         <#list collections as col>
-            <#if col.getOwner().getUsername() == name>
-                <tr>
-                    <td>${col.getName()}</td>
-                    <td>${col.getTheme()}</td>
-                    <td>${col.getDescription()}</td>
-                    <td>${col.getSize()}</td>
-                    <td><a href="/addItem/add/${col.getName()}">Add</a></td>
-                </tr>
-            </#if>
-
+            <tr>
+                <td>${col.getName()}</td>
+                <td>${col.getTheme()}</td>
+                <td>${col.getDescription()}</td>
+                <td>${col.getSize()}</td>
+                <td><a href="/addItem/add/${col.getName()}">Add</a></td>
+            </tr>
         </#list>
         </tbody>
 
