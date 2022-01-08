@@ -56,8 +56,8 @@ public class UserController {
     }
 
     @PostMapping("/personalPage")
-    public String putCollection(@AuthenticationPrincipal User user, @RequestParam String name, @RequestParam String description, Map<String, Object> model){
-        Collection col = new Collection(name, description, user);
+    public String putCollection(@AuthenticationPrincipal User user, @RequestParam String name, @RequestParam String description, @RequestParam String theme, Map<String, Object> model){
+        Collection col = new Collection(name, description, theme, user);
         collectionsRepo.save(col);
         Iterable<Collection> collections = collectionsRepo.findAll();
         model.put("collections", collections);

@@ -14,10 +14,11 @@ public class Collection {
     @ManyToOne(fetch = FetchType.EAGER)
     private User owner;
 
-    public Collection(String name, String description, User user) {
+    public Collection(String name, String description, String theme, User user) {
         this.owner = user;
         this.name = name;
         this.description = description;
+        this.theme = theme;
     }
 
     public Collection() {

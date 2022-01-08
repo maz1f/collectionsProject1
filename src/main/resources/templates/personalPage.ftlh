@@ -4,14 +4,37 @@
     <h2>Hello, ${name}</h2>
 
     <form method="post">
-        <div class="mb-3">
-            <input type="text"  name = "name" placeholder="put collection name" />
+        <div class="row g-4 mb-5 mt-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <input type="text" class="form-control" name = "name" id="putName" />
+                    <label for="putName">Collection name</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <input type="text" class="form-control" name ="description" id="putDescr" />
+                    <label for="putDescr">Collection description</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <select class="form-select" name="theme" id="selectTheme">
+                        <option value="Alcohol">Alcohol</option>
+                        <option value="Marks">Marks</option>
+                        <option value="Books">Books</option>
+                    </select>
+                    <label for="selectTheme">Collection theme</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <button type="submit" class="btn btn-primary w-25 p-3">Add</button>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <input type="text" name ="description" placeholder="put description" />
-        </div>
+
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
-        <button type="submit" class="btn btn-primary">Add</button>
     </form>
 
     <h4>Your collections:</h4>
@@ -20,16 +43,18 @@
         <tr>
             <th scope="col">Collection Name</th>
             <th scope="col">Descriprion</th>
+            <th scope="colgroup">Theme</th>
             <th scope="col">Owner</th>
         </tr>
         </thead>
         <tbody>
         <#list collections as col>
-                <tr>
-                    <td>${col.getName()}</td>
-                    <td>${col.getDescription()}</td>
-                    <td>${col.getOwner().getUsername()}</td>
-                </tr>
+            <tr>
+                <td>${col.getName()}</td>
+                <td>${col.getDescription()}</td>
+                <td>${col.getTheme()}</td>
+                <td>${col.getOwner().getUsername()}</td>
+            </tr>
         </#list>
         </tbody>
 
