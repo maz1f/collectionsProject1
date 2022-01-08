@@ -17,6 +17,9 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/helloPage">Say Hello</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/allCollections">Collections List</a>
+                </li>
                 <#if name == "unknown">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/login">Login</a>

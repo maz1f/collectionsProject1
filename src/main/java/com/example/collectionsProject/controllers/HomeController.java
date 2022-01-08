@@ -1,5 +1,10 @@
 package com.example.collectionsProject.controllers;
 
+import com.example.collectionsProject.domain.Collection;
+import com.example.collectionsProject.domain.User;
+import com.example.collectionsProject.repos.CollectionsRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +17,8 @@ import java.util.Map;
 
 @Controller
 public class HomeController {
+    @Autowired
+    private CollectionsRepo collectionsRepo;
 
     @GetMapping("/")
     public String mainPage(){
@@ -35,7 +42,7 @@ public class HomeController {
 
         if(idrates != null){
             if (idrates.contains("1"))
-                    return "redirect:volov";
+                    return "redirect:test?message=It's right choose";
             else return "redirect:test?message=Choose Artem Volov";
         }
         return "redirect:test";
@@ -48,8 +55,12 @@ public class HomeController {
         return "test";
     }
 
-    @GetMapping("/volov")
-    public  String vlv() {
-        return "volov";
+    @GetMapping("/allCollections")
+    public String personPage(Map<String, Object> model){
+        Iterable<Collection> collections = collectionsRepo.findAll();
+        model.put("collections", collections);
+        return "allCollections";
     }
+
+
 }

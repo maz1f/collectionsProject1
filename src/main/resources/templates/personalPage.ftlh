@@ -42,19 +42,22 @@
         <thead>
         <tr>
             <th scope="col">Collection Name</th>
-            <th scope="col">Descriprion</th>
             <th scope="colgroup">Theme</th>
+            <th scope="col">Descriprion</th>
             <th scope="col">Owner</th>
         </tr>
         </thead>
         <tbody>
         <#list collections as col>
-            <tr>
-                <td>${col.getName()}</td>
-                <td>${col.getDescription()}</td>
-                <td>${col.getTheme()}</td>
-                <td>${col.getOwner().getUsername()}</td>
-            </tr>
+            <#if col.getOwner().getUsername() == name>
+                <tr>
+                    <td>${col.getName()}</td>
+                    <td>${col.getTheme()}</td>
+                    <td>${col.getDescription()}</td>
+                    <td>${col.getOwner().getUsername()}</td>
+                </tr>
+            </#if>
+
         </#list>
         </tbody>
 
