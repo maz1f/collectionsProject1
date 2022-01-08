@@ -1,9 +1,12 @@
 package com.example.collectionsProject.controllers;
 
+import com.example.collectionsProject.domain.Collection;
 import com.example.collectionsProject.domain.Role;
 import com.example.collectionsProject.domain.User;
+import com.example.collectionsProject.repos.CollectionsRepo;
 import com.example.collectionsProject.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private CollectionsRepo collectionsRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -45,8 +50,17 @@ public class UserController {
 
     @GetMapping("/personalPage")
     public String personPage(Map<String, Object> model){
-        Iterable<User> users = userRepo.findAll();
-        model.put("users", users);
+        Iterable<Collection> collections = collectionsRepo.findAll();
+        model.put("collections", collections);
         return "personalPage";
+    }
+
+    @PostMapping("/personalPage")
+    public String putCollection(@AuthenticationPrincipal User user, @RequestParam String name, @RequestParam String description, Map<String, Object> model){
+        Collection col = new Collection(name, description, user);
+        collectionsRepo.save(col);
+        Iterable<Collection> collections = collectionsRepo.findAll();
+        model.put("collections", collections);
+        return("personalPage");
     }
 }
