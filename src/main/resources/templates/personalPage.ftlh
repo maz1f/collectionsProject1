@@ -42,9 +42,10 @@
         <thead>
         <tr>
             <th scope="col">Collection Name</th>
-            <th scope="colgroup">Theme</th>
+            <th scope="col">Theme</th>
             <th scope="col">Descriprion</th>
-            <th scope="col">Owner</th>
+            <th scope="col">Size</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -54,7 +55,8 @@
                     <td>${col.getName()}</td>
                     <td>${col.getTheme()}</td>
                     <td>${col.getDescription()}</td>
-                    <td>${col.getOwner().getUsername()}</td>
+                    <td>${col.getSize()}</td>
+                    <td><a href="/addItem/add/${col.getName()}">Add</a></td>
                 </tr>
             </#if>
 

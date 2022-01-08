@@ -12,6 +12,16 @@ public class Item {
     @ManyToOne
     private Collection collection;
 
+    public Item(String name, String tag, Collection collection) {
+        this.name = name;
+        this.tag = tag;
+        this.collection = collection;
+    }
+
+    public Item() {
+
+    }
+
     public Long getId() {
         return id;
     }

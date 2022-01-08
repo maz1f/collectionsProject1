@@ -13,12 +13,14 @@ public class Collection {
     private String theme;
     @ManyToOne(fetch = FetchType.EAGER)
     private User owner;
+    private int size;
 
     public Collection(String name, String description, String theme, User user) {
         this.owner = user;
         this.name = name;
         this.description = description;
         this.theme = theme;
+        this.size = 0;
     }
 
     public Collection() {
@@ -63,5 +65,13 @@ public class Collection {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }
