@@ -41,11 +41,12 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Collection Name</th>
+            <th scope="col">Collection name</th>
             <th scope="col">Theme</th>
             <th scope="col">Descriprion</th>
             <th scope="col">Size</th>
-            <th scope="col"></th>
+            <th scope="col">Show items</th>
+            <th scope="col">Add new item</th>
         </tr>
         </thead>
         <tbody>
@@ -55,7 +56,8 @@
                 <td>${col.getTheme()}</td>
                 <td>${col.getDescription()}</td>
                 <td>${col.getSize()}</td>
-                <td><a href="/addItem/add/${col.getName()}">Add</a></td>
+                <td><td><a href="/showItems/${name}/${col.getName()}">Show Items</a></td></td>
+                <td><a href="/addItem/${col.getName()}">Add</a></td>
             </tr>
         </#list>
         </tbody>

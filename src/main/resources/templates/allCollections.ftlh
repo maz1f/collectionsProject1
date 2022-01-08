@@ -5,11 +5,12 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Collection Name</th>
+            <th scope="col">Collection name</th>
             <th scope="col">Owner</th>
             <th scope="col">Theme</th>
             <th scope="col">Size</th>
             <th scope="col">Descriprion</th>
+            <th scope="col">Items</th>
         </tr>
         </thead>
         <tbody>
@@ -20,6 +21,7 @@
                 <td>${col.getTheme()}</td>
                 <th>${col.getSize()}</th>
                 <td>${col.getDescription()}</td>
+                <td><a href="/showItems/${name}/${col.getName()}">Show Items</a></td>
             </tr>
         </#list>
         </tbody>

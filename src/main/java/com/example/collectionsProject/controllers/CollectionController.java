@@ -22,12 +22,12 @@ public class CollectionController {
     @Autowired
     private ItemRepo itemRepo;
 
-    @GetMapping("/addItem/add/{colName}")
+    @GetMapping("/addItem/{colName}")
     public String showItemPage(@PathVariable String colName, Map<String, Object> model){
         return "addItem";
     }
 
-    @PostMapping("/addItem/add/{colName}")
+    @PostMapping("/addItem/{colName}")
     public String add(@PathVariable String colName, @RequestParam String name, @RequestParam String tag, Map<String, Object> model ) {
 
         Collection col = collectionsRepo.findCollectionByName(colName);
@@ -35,5 +35,13 @@ public class CollectionController {
         col.setSize(col.getSize() + 1);
         itemRepo.save(item);
         return "addItem";
+    }
+
+    @GetMapping("/showItems/{name}/{col}")
+    public String showItems(@PathVariable String col, @PathVariable String name, Map<String, Object> model) {
+        Collection currentCollection = collectionsRepo.findCollectionByName(col);
+        Iterable<Item> items = itemRepo.findAllByCollection(currentCollection);
+        model.put("items", items);
+        return "showItem";
     }
 }
