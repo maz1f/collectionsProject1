@@ -27,7 +27,12 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/registration">Registration</a>
                     </li>
+                    <#elseif user.isAdmin()>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/user">UsersList</a>
+                        </li>
                 </#if>
+                
             </ul>
             <#if name != "unknown">
                 <a class="nav-link" aria-current="page" href="/personalPage">
@@ -39,6 +44,7 @@
                 </a>
                 <@l.logout />
             </#if>
+
         </div>
     </div>
     </div>
