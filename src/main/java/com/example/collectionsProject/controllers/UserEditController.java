@@ -22,8 +22,8 @@ public class UserEditController {
     private UserRepo userRepo;
 
     @GetMapping()
-    public String getUsers(Map<String,Object> model) {
-        model.put("users", userRepo.findAll());
+    public String getUsers(Model model) {
+        model.addAttribute("users", userRepo.findAll());
         return "usersList";
     }
 

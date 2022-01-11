@@ -26,14 +26,14 @@ public class HomeController {
     }
 
     @GetMapping("/helloPage")
-    public String homePage(@RequestParam(name="name", required=false, defaultValue="unknown") String name, Map<String, Object> model) {
-        model.put("user", name);
+    public String homePage(@RequestParam(name="name", required=false, defaultValue="unknown") String name, Model model) {
+        model.addAttribute("user", name);
         return "helloPage";
     }
 
     @PostMapping("/helloPage")
-    public String getName(@RequestParam String name, Map<String,Object> model) {
-        model.put("user", name);
+    public String getName(@RequestParam String name, Model model) {
+        model.addAttribute("user", name);
         return "helloPage";
     }
 
@@ -56,9 +56,9 @@ public class HomeController {
     }
 
     @GetMapping("/allCollections")
-    public String personPage(Map<String, Object> model){
+    public String personPage(Model model){
         Iterable<Collection> collections = collectionsRepo.findAll();
-        model.put("collections", collections);
+        model.addAttribute("collections", collections);
         return "allCollections";
     }
 

@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registrate(User user, Map<String, Object> model) {
+    public String registrate(User user, Model model) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
         if (userFromDb != null) {
             return "redirect:registration?message=This username is already exist";
@@ -44,23 +44,23 @@ public class UserController {
         user.setActive(true);
         userRepo.save(user);
         Iterable<User> users = userRepo.findAll();
-        model.put("users", users);
+        model.addAttribute("users", users);
         return "redirect:login";
     }
 
     @GetMapping("/personalPage")
-    public String personPage(@AuthenticationPrincipal User user, Map<String, Object> model){
+    public String personPage(@AuthenticationPrincipal User user, Model model){
         Iterable<Collection> collections = collectionsRepo.findAllByOwner(user);
-        model.put("collections", collections);
+        model.addAttribute("collections", collections);
         return "personalPage";
     }
 
     @PostMapping("/personalPage")
-    public String putCollection(@AuthenticationPrincipal User user, @RequestParam String name, @RequestParam String description, @RequestParam String theme, Map<String, Object> model){
+    public String putCollection(@AuthenticationPrincipal User user, @RequestParam String name, @RequestParam String description, @RequestParam String theme, Model model){
         Collection col = new Collection(name, description, theme, user);
         collectionsRepo.save(col);
         Iterable<Collection> collections = collectionsRepo.findAll();
-        model.put("collections", collections);
+        model.addAttribute("collections", collections);
         return("personalPage");
     }
 }

@@ -8,6 +8,7 @@ import com.example.collectionsProject.repos.ItemRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,25 +24,27 @@ public class CollectionController {
     private ItemRepo itemRepo;
 
     @GetMapping("/addItem/{colName}")
-    public String showItemPage(@PathVariable String colName, Map<String, Object> model){
+    public String showItemPage(@AuthenticationPrincipal User user, @PathVariable String colName, Model model){
+        Collection col = collectionsRepo.findCollectionByName(colName);
+        model.addAttribute("isCurrentUser", user.equals(col.getOwner()));
         return "addItem";
     }
 
     @PostMapping("/addItem/{colName}")
-    public String add(@PathVariable String colName, @RequestParam String name, @RequestParam String tag, Map<String, Object> model ) {
+    public String add(@AuthenticationPrincipal User user, @PathVariable String colName, @RequestParam String name, @RequestParam String tag, Model model ) {
 
         Collection col = collectionsRepo.findCollectionByName(colName);
         Item item = new Item(name, tag, col);
         col.setSize(col.getSize() + 1);
         itemRepo.save(item);
-        return "addItem";
+        return "redirect:/personalPage";
     }
 
-    @GetMapping("/showItems/{name}/{col}")
-    public String showItems(@PathVariable String col, @PathVariable String name, Map<String, Object> model) {
+    @GetMapping("/showItems/{col}")
+    public String showItems(@PathVariable String col, Model model) {
         Collection currentCollection = collectionsRepo.findCollectionByName(col);
         Iterable<Item> items = itemRepo.findAllByCollection(currentCollection);
-        model.put("items", items);
+        model.addAttribute("items", items);
         return "showItem";
     }
 }

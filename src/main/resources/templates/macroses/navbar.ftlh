@@ -32,7 +32,7 @@
                             <a class="nav-link" aria-current="page" href="/user">UsersList</a>
                         </li>
                 </#if>
-                
+
             </ul>
             <#if name != "unknown">
                 <a class="nav-link" aria-current="page" href="/personalPage">

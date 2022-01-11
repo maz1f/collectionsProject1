@@ -56,7 +56,7 @@
                 <td>${col.getTheme()}</td>
                 <td>${col.getDescription()}</td>
                 <td>${col.getSize()}</td>
-                <td><td><a href="/showItems/${name}/${col.getName()}">Show Items</a></td></td>
+                <td><td><a href="/showItems/${col.getName()}">Show Items</a></td></td>
                 <td><a href="/addItem/${col.getName()}">Add</a></td>
             </tr>
         </#list>
