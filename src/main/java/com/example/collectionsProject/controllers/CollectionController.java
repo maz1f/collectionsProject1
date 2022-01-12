@@ -60,7 +60,7 @@ public class CollectionController {
         return "collectionEdit";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') or #col.owner == authentication.name")
+    @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
     @PostMapping("/collectionEdit/{col}")
     public String editCollection(@PathVariable Collection col,
                                  @RequestParam String name,
