@@ -1,4 +1,5 @@
 <#import "macroses/common.ftlh" as c>
+<#include "macroses/security.ftlh">
 <@c.page>
     <div><h2>${col.name}</h2></div>
     <form action="/filter/${col.getId()}" method="post">
@@ -16,6 +17,7 @@
             <tr>
                 <th scope="col">Item name</th>
                 <th scope="col">Item tag</th>
+                <#if name == col.getOwner().getUsername() || user.isAdmin()><th scope="col">Delete</th></#if>
             </tr>
             </thead>
             <tbody>
@@ -23,6 +25,7 @@
                 <tr>
                     <td>${item.getName()}</td>
                     <td>${item.getTag()}</td>
+                    <#if name == col.getOwner().getUsername() || user.isAdmin()><td><a href="/deleteItem/${item.getId()}">Delete</a></td></#if>
                 </tr>
             </#list>
             </tbody>
