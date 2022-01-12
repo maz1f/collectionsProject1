@@ -31,19 +31,18 @@ public class CollectionController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
-    @PostMapping("/addItem/{colName}")
+    @PostMapping("/addItem/{col}")
     public String add(@AuthenticationPrincipal User user,
-                      @PathVariable String colName,
+                      @PathVariable Collection col,
                       @RequestParam String name,
                       @RequestParam String tag,
                       Model model
     ) {
 
-        Collection col = collectionsRepo.findCollectionByName(colName);
         Item item = new Item(name, tag, col);
         col.setSize(col.getSize() + 1);
         itemRepo.save(item);
-        return "redirect:/personalPage";
+        return "addItem";
     }
 
     @GetMapping("/showItems/{col}")
@@ -70,7 +69,7 @@ public class CollectionController {
         col.setName(name);
         col.setDescription(description);
         collectionsRepo.save(col);
-        return "redirect:/personalPage";
+        return "collectionEdit";
 
     }
 }
