@@ -40,7 +40,6 @@ public class CollectionController {
     ) {
 
         Item item = new Item(name, tag, col);
-        col.setSize(col.getSize() + 1);
         itemRepo.save(item);
         return "addItem";
     }
@@ -50,6 +49,7 @@ public class CollectionController {
         Iterable<Item> items = itemRepo.findAllByCollection(col);
         model.addAttribute("col", col);
         model.addAttribute("items", items);
+        System.out.println(col.getItems().size());
         return "collection";
     }
 

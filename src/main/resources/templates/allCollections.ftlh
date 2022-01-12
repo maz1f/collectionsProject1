@@ -10,18 +10,18 @@
             <th scope="col">Theme</th>
             <th scope="col">Size</th>
             <th scope="col">Descriprion</th>
-            <th scope="col">Items</th>
+            <th scope="col">Show collection</th>
         </tr>
         </thead>
         <tbody>
         <#list collections as col>
             <tr>
-                <td>${col.getName()}</td>
-                <td>${col.getOwner().getUsername()}</td>
-                <td>${col.getTheme()}</td>
-                <th>${col.getSize()}</th>
-                <td>${col.getDescription()}</td>
-                <td><a href="/collection/${col.getId()}">Show Items</a></td>
+                <td>${col.name}</td>
+                <td>${col.owner.username}</td>
+                <td>${col.theme}</td>
+                <th>${col.items?size}</th>
+                <td>${col.description}</td>
+                <td><a href="/collection/${col.id}">Show collection</a></td>
             </tr>
         </#list>
         </tbody>

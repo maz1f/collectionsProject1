@@ -46,20 +46,18 @@
             <th scope="col">Descriprion</th>
             <th scope="col">Size</th>
             <th scope="col">Edit</th>
-            <th scope="col">Show items</th>
-            <th scope="col">Add new item</th>
+            <th scope="col">Show collection</th>
         </tr>
         </thead>
         <tbody>
         <#list collections as col>
             <tr>
-                <td>${col.getName()}</td>
-                <td>${col.getTheme()}</td>
-                <td>${col.getDescription()}</td>
-                <td>${col.getSize()}</td>
-                <td><a href="/collectionEdit/${col.getId()}">Edit</a></td>
-                <td><a href="/collection/${col.getId()}">Show Items</a></td>
-                <td><a href="/addItem/${col.getId()}">Add</a></td>
+                <td>${col.name}</td>
+                <td>${col.theme}</td>
+                <td>${col.description}</td>
+                <td>${col.items?size}</td>
+                <td><a href="/collectionEdit/${col.id}">Edit</a></td>
+                <td><a href="/collection/${col.id}">Show collection</a></td>
             </tr>
         </#list>
         </tbody>

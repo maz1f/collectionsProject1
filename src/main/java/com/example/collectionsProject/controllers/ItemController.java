@@ -26,8 +26,6 @@ public class ItemController {
     public String deleteItem(@AuthenticationPrincipal User user, @PathVariable Item item, Model model) {
         Collection col = item.getCollection();
         itemRepo.delete(item);
-        col.setSize(col.getSize() - 1);
-        collectionsRepo.save(col);
         Iterable<Item> items = itemRepo.findAllByCollection(col);
         model.addAttribute("items", items);
         model.addAttribute("col", col);

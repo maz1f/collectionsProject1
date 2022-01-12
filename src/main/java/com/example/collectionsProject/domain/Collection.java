@@ -2,6 +2,7 @@ package com.example.collectionsProject.domain;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Collection {
@@ -13,14 +14,14 @@ public class Collection {
     private String theme;
     @ManyToOne(fetch = FetchType.EAGER)
     private User owner;
-    private int size;
+    @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Item> items;
 
     public Collection(String name, String description, String theme, User user) {
         this.owner = user;
         this.name = name;
         this.description = description;
         this.theme = theme;
-        this.size = 0;
     }
 
     public Collection() {
@@ -67,12 +68,11 @@ public class Collection {
         this.owner = owner;
     }
 
-    public int getSize() {
-        return size;
+    public Set<Item> getItems() {
+        return items;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setItems(Set<Item> items) {
+        this.items = items;
     }
-
 }
