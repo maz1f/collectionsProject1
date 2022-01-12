@@ -21,7 +21,7 @@
                 <td>${col.getTheme()}</td>
                 <th>${col.getSize()}</th>
                 <td>${col.getDescription()}</td>
-                <td><a href="/showItems/${col.getName()}">Show Items</a></td>
+                <td><a href="/collection/${col.getId()}">Show Items</a></td>
             </tr>
         </#list>
         </tbody>

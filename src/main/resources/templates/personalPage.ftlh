@@ -58,7 +58,7 @@
                 <td>${col.getDescription()}</td>
                 <td>${col.getSize()}</td>
                 <td><a href="/collectionEdit/${col.getId()}">Edit</a></td>
-                <td><a href="/showItems/${col.getName()}">Show Items</a></td>
+                <td><a href="/collection/${col.getId()}">Show Items</a></td>
                 <td><a href="/addItem/${col.getId()}">Add</a></td>
             </tr>
         </#list>

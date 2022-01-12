@@ -45,12 +45,25 @@ public class CollectionController {
         return "addItem";
     }
 
-    @GetMapping("/showItems/{col}")
-    public String showItems(@PathVariable String col, Model model) {
-        Collection currentCollection = collectionsRepo.findCollectionByName(col);
-        Iterable<Item> items = itemRepo.findAllByCollection(currentCollection);
+    @GetMapping("/collection/{col}")
+    public String showCollection(@PathVariable Collection col, Model model) {
+        Iterable<Item> items = itemRepo.findAllByCollection(col);
+        model.addAttribute("col", col);
         model.addAttribute("items", items);
-        return "showItem";
+        return "collection";
+    }
+
+    @PostMapping("/filter/{col}")
+    public String filter(@PathVariable Collection col, @RequestParam String tag, Model model) {
+        Iterable<Item> items;
+        if (tag != null && !tag.isEmpty()) {
+            items = itemRepo.findByTag(tag);
+        }
+        else
+            items = itemRepo.findAllByCollection(col);
+        model.addAttribute("col", col);
+        model.addAttribute("items", items);
+        return "collection";
     }
 
     @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
@@ -72,4 +85,5 @@ public class CollectionController {
         return "collectionEdit";
 
     }
+
 }
