@@ -21,7 +21,14 @@ public class HomeController {
     private CollectionsRepo collectionsRepo;
 
     @GetMapping("/")
-    public String mainPage(){
+    public String mainPage(Model model){
+        Iterable<Collection> collections = collectionsRepo.findAll();
+        Collection maxSize = collections.iterator().next();
+        for (Collection col : collections) {
+            if (col.getItems().size() > maxSize.getItems().size())
+                maxSize = col;
+        }
+        model.addAttribute("maxSizeCollection", maxSize);
         return "";
     }
 
