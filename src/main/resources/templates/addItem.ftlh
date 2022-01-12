@@ -1,7 +1,6 @@
 <#import "macroses/common.ftlh" as c>
 <#include "macroses/security.ftlh">
 <@c.page>
-    <#if isCurrentUser || user.isAdmin()>
         <form method="post">
             <div class="row g-3 mb-5 mt-2">
                 <div class="col-md">
@@ -25,8 +24,5 @@
 
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
         </form>
-    <#else> <h3>You can't add items to this collection</h3>
-    </#if>
-
 
 </@c.page>

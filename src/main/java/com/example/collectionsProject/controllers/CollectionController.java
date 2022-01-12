@@ -6,6 +6,7 @@ import com.example.collectionsProject.domain.User;
 import com.example.collectionsProject.repos.CollectionsRepo;
 import com.example.collectionsProject.repos.ItemRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,15 +24,20 @@ public class CollectionController {
     @Autowired
     private ItemRepo itemRepo;
 
-    @GetMapping("/addItem/{colName}")
-    public String showItemPage(@AuthenticationPrincipal User user, @PathVariable String colName, Model model){
-        Collection col = collectionsRepo.findCollectionByName(colName);
-        model.addAttribute("isCurrentUser", user.equals(col.getOwner()));
+    @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
+    @GetMapping("/addItem/{col}")
+    public String showItemPage(@PathVariable Collection col){
         return "addItem";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
     @PostMapping("/addItem/{colName}")
-    public String add(@AuthenticationPrincipal User user, @PathVariable String colName, @RequestParam String name, @RequestParam String tag, Model model ) {
+    public String add(@AuthenticationPrincipal User user,
+                      @PathVariable String colName,
+                      @RequestParam String name,
+                      @RequestParam String tag,
+                      Model model
+    ) {
 
         Collection col = collectionsRepo.findCollectionByName(colName);
         Item item = new Item(name, tag, col);
@@ -46,5 +52,25 @@ public class CollectionController {
         Iterable<Item> items = itemRepo.findAllByCollection(currentCollection);
         model.addAttribute("items", items);
         return "showItem";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
+    @GetMapping("/collectionEdit/{col}")
+    public String showCollectionEditor(@PathVariable Collection col, Model model) {
+        model.addAttribute("col", col);
+        return "collectionEdit";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN') or #col.owner == authentication.name")
+    @PostMapping("/collectionEdit/{col}")
+    public String editCollection(@PathVariable Collection col,
+                                 @RequestParam String name,
+                                 @RequestParam String description
+    ) {
+        col.setName(name);
+        col.setDescription(description);
+        collectionsRepo.save(col);
+        return "redirect:/personalPage";
+
     }
 }

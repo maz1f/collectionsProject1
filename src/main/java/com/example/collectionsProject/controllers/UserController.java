@@ -6,6 +6,7 @@ import com.example.collectionsProject.domain.User;
 import com.example.collectionsProject.repos.CollectionsRepo;
 import com.example.collectionsProject.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;

@@ -45,6 +45,7 @@
             <th scope="col">Theme</th>
             <th scope="col">Descriprion</th>
             <th scope="col">Size</th>
+            <th scope="col">Edit</th>
             <th scope="col">Show items</th>
             <th scope="col">Add new item</th>
         </tr>
@@ -56,8 +57,9 @@
                 <td>${col.getTheme()}</td>
                 <td>${col.getDescription()}</td>
                 <td>${col.getSize()}</td>
-                <td><td><a href="/showItems/${col.getName()}">Show Items</a></td></td>
-                <td><a href="/addItem/${col.getName()}">Add</a></td>
+                <td><a href="/collectionEdit/${col.getId()}">Edit</a></td>
+                <td><a href="/showItems/${col.getName()}">Show Items</a></td>
+                <td><a href="/addItem/${col.getId()}">Add</a></td>
             </tr>
         </#list>
         </tbody>
