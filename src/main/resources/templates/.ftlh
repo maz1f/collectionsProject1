@@ -12,17 +12,15 @@
             <th scope="col">Theme</th>
             <th scope="col">Size</th>
             <th scope="col">Descriprion</th>
-            <th scope="col">Show collection</th>
         </tr>
         </thead>
         <tbody>
             <tr>
-                <td>${maxSizeCollection.name}</td>
-                <td>${maxSizeCollection.owner.username}</td>
+                <td><a href="/collection/${maxSizeCollection.id}">${maxSizeCollection.name}</a></td>
+                <td><a href="/personalPage/${maxSizeCollection.owner.id}">${maxSizeCollection.owner.username}</a></td>
                 <td>${maxSizeCollection.theme}</td>
                 <th>${maxSizeCollection.items?size}</th>
                 <td>${maxSizeCollection.description}</td>
-                <td><a href="/collection/${maxSizeCollection.id}">Show collection</a></td>
             </tr>
         </tbody>
 

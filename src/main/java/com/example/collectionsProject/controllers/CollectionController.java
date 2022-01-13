@@ -86,4 +86,13 @@ public class CollectionController {
 
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
+    @GetMapping("/deleteCollection/{col}")
+    public String deleteCollection(@PathVariable Collection col, Model model) {
+        collectionsRepo.delete(col);
+        Iterable<Collection> collections = collectionsRepo.findAllByOwner(col.getOwner());
+        model.addAttribute("collections", collections);
+        model.addAttribute("owner", col.getOwner());
+        return "/personalPage";
+    }
 }

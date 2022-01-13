@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -49,19 +50,29 @@ public class UserController {
         return "redirect:login";
     }
 
-    @GetMapping("/personalPage")
-    public String personPage(@AuthenticationPrincipal User user, Model model){
+    @GetMapping("/personalPage/{user}")
+    public String personPage(@PathVariable User user,
+                             @AuthenticationPrincipal User currentUser,
+                             Model model
+    ){
         Iterable<Collection> collections = collectionsRepo.findAllByOwner(user);
         model.addAttribute("collections", collections);
+        model.addAttribute("owner", user);
         return "personalPage";
     }
 
-    @PostMapping("/personalPage")
-    public String putCollection(@AuthenticationPrincipal User user, @RequestParam String name, @RequestParam String description, @RequestParam String theme, Model model){
+    @PreAuthorize("hasAuthority('ADMIN') or #user.username == authentication.name")
+    @PostMapping("/personalPage/{user}")
+    public String putCollection(@PathVariable User user,
+                                @AuthenticationPrincipal User currentUser,
+                                @RequestParam String name, @RequestParam String description,
+                                @RequestParam String theme, Model model
+    ){
         Collection col = new Collection(name, description, theme, user);
         collectionsRepo.save(col);
-        Iterable<Collection> collections = collectionsRepo.findAll();
+        Iterable<Collection> collections = collectionsRepo.findAllByOwner(user);
         model.addAttribute("collections", collections);
+        model.addAttribute("owner", user);
         return("personalPage");
     }
 }
