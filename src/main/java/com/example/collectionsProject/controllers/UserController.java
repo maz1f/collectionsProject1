@@ -31,17 +31,22 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/registration")
-    public String registrPage(@RequestParam(name = "message", required = false, defaultValue = "") String message, Model model ) {
-
-        model.addAttribute("message", message);
+    public String registrPage(Model model ) {
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registrate(User user, Model model) {
+    public String registrate(@Valid User user, BindingResult bindingResult, Model model) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
+
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
+            model.mergeAttributes(errors);
+            return "registration";
+        }
         if (userFromDb != null) {
-            return "redirect:registration?message=This username is already exist";
+            model.addAttribute("usernameError", "User exist");
+            return "registration";
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Collections.singleton(Role.USER));

@@ -75,7 +75,7 @@
             <tr>
                 <td><a href="/collection/${col.id}">${col.name}</a></td>
                 <td>${col.theme}</td>
-                <td>${col.description}</td>
+                <td><a href="/res/${col.id}">${col.description}</a></td>
                 <td><#if col.items??>${col.items?size}<#else>0</#if></td>
                 <#if owner.equals(user) || user.isAdmin()><td><a href="/collectionEdit/${col.id}">Edit</a></td></#if>
                 <#if owner.equals(user) || user.isAdmin()><td><a href="/deleteCollection/${col.id}">Delete</a></td></#if>
