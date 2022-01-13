@@ -29,6 +29,7 @@ public class ItemController {
         Iterable<Item> items = itemRepo.findAllByCollection(col);
         model.addAttribute("items", items);
         model.addAttribute("col", col);
+        model.addAttribute("item", null);
         return "collection";
     }
 }

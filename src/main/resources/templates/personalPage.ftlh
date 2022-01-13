@@ -5,17 +5,31 @@
         <h2>Personal page of ${owner.username}</h2>
     </div>
     <#if owner.equals(user) || user.isAdmin()>
-        <form method="post" action="${owner.id}">
+        <div class = "mb-3">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#addNewCollection" aria-expanded="false" aria-controls="addNewCollection">
+                Add new collection
+            </button>
+        </div>
+        <div class="collapse <#if collection??>show</#if> mb-4" id = "addNewCollection">
+        <form method="post" action="/personalPage/${owner.id}">
             <div class="row g-4 mb-5">
                 <div class="col-md">
                     <div class="form-floating">
-                        <input type="text" class="form-control" name = "name" id="putName" />
+                        <input type="text" class="form-control ${(nameError??)?string('is-invalid','')}"
+                               value = "<#if collection??>${collection.name}</#if>" name = "name" id="putName" />
+                        <#if nameError??>
+                            <div class="invalid-feedback">
+                                ${nameError}
+                            </div>
+                        </#if>
                         <label for="putName">Collection name</label>
                     </div>
                 </div>
                 <div class="col-md">
                     <div class="form-floating">
-                        <input type="text" class="form-control" name ="description" id="putDescr" />
+                        <input type="text" class="form-control"
+                               value = "<#if collection??>${collection.description}</#if>" name ="description" id="putDescr" />
                         <label for="putDescr">Collection description</label>
                     </div>
                 </div>
@@ -38,6 +52,7 @@
 
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
         </form>
+        </div>
     </#if>
 
 

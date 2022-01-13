@@ -11,11 +11,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.Map;
 
@@ -65,14 +67,22 @@ public class UserController {
     @PostMapping("/personalPage/{user}")
     public String putCollection(@PathVariable User user,
                                 @AuthenticationPrincipal User currentUser,
-                                @RequestParam String name, @RequestParam String description,
-                                @RequestParam String theme, Model model
+                                @Valid Collection collection,
+                                BindingResult bindingResult,
+                                Model model
     ){
-        Collection col = new Collection(name, description, theme, user);
-        collectionsRepo.save(col);
+        collection.setOwner(user);
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+            model.mergeAttributes(errorsMap);
+            model.addAttribute("collection", collection);
+        } else {
+            collectionsRepo.save(collection);
+        }
         Iterable<Collection> collections = collectionsRepo.findAllByOwner(user);
         model.addAttribute("collections", collections);
         model.addAttribute("owner", user);
+        model.addAttribute("collection", null);
         return("personalPage");
     }
 }

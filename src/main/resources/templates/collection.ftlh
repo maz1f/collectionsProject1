@@ -11,9 +11,44 @@
     </form>
 
     <#if name == col.owner.username || user.isAdmin()>
-    <div>
-        <a class="btn btn-primary mb-3" href="/addItem/${col.id}" role="button">Add new Item</a>
-    </div>
+        <div>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#addNewItem" aria-expanded="false" aria-controls="addNewItem">
+                Add new item
+            </button>
+        </div>
+        <div class="collapse <#if item??>show</#if>" id = "addNewItem">
+            <form method="post" action="/addItem/${col.id}">
+                <div class="row g-3 mb-5 mt-2">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="text" class="form-control ${(nameError??)?string('is-invalid','')}"
+                                   value = "<#if item??>${item.name}</#if>" name = "name" id="putName" />
+                            <#if nameError??>
+                                <div class="invalid-feedback">
+                                    ${nameError}
+                                </div>
+                            </#if>
+                            <label for="putName">Item name</label>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="text" class="form-control"
+                                   value = "<#if item??>${item.tag}</#if>" name ="tag" id="putTag" />
+                            <label for="putTag">Item tag</label>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <button type="submit" class="btn btn-primary w-25 p-3">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf" value="${_csrf.token}" />
+            </form>
+        </div>
     </#if>
     <form action="/collection/${col.id}" method="post">
         <table class="table">
@@ -36,4 +71,6 @@
         </table>
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
     </form>
+
+
 </@c.page>

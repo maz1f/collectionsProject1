@@ -1,7 +1,7 @@
 package com.example.collectionsProject.domain;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
@@ -9,6 +9,7 @@ public class Collection {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotBlank(message = "please fill the name")
     private String name;
     private String description;
     private String theme;

@@ -10,11 +10,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -25,23 +27,27 @@ public class CollectionController {
     private ItemRepo itemRepo;
 
     @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
-    @GetMapping("/addItem/{col}")
-    public String showItemPage(@PathVariable Collection col){
-        return "addItem";
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
     @PostMapping("/addItem/{col}")
     public String add(@AuthenticationPrincipal User user,
                       @PathVariable Collection col,
-                      @RequestParam String name,
-                      @RequestParam String tag,
+                      @Valid Item item,
+                      BindingResult bindingResult,
                       Model model
     ) {
 
-        Item item = new Item(name, tag, col);
-        itemRepo.save(item);
-        return "addItem";
+        item.setCollection(col);
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+            model.mergeAttributes(errorsMap);
+            model.addAttribute("item", item);
+        } else {
+            itemRepo.save(item);
+        }
+        Iterable<Item> items = itemRepo.findAllByCollection(col);
+        model.addAttribute("col", col);
+        model.addAttribute("items", items);
+        model.addAttribute("item", null);
+        return "collection";
     }
 
     @GetMapping("/collection/{col}")
@@ -49,7 +55,6 @@ public class CollectionController {
         Iterable<Item> items = itemRepo.findAllByCollection(col);
         model.addAttribute("col", col);
         model.addAttribute("items", items);
-        System.out.println(col.getItems().size());
         return "collection";
     }
 
@@ -76,13 +81,25 @@ public class CollectionController {
     @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
     @PostMapping("/collectionEdit/{col}")
     public String editCollection(@PathVariable Collection col,
-                                 @RequestParam String name,
-                                 @RequestParam String description
+                                 @Valid Collection collection,
+                                 BindingResult bindingResult,
+                                 Model model
     ) {
-        col.setName(name);
-        col.setDescription(description);
-        collectionsRepo.save(col);
-        return "collectionEdit";
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+            model.mergeAttributes(errorsMap);
+            model.addAttribute("collection", collection);
+            return "collectionEdit";
+        } else {
+            col.setName(collection.getName());
+            col.setDescription(collection.getDescription());
+            collectionsRepo.save(col);
+            model.addAttribute("collection", null);
+            model.addAttribute("owner", col.getOwner());
+            Iterable<Collection> collections = collectionsRepo.findAllByOwner(col.getOwner());
+            model.addAttribute("collections", collections);
+            return "personalPage";
+        }
 
     }
 
