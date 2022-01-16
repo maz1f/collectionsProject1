@@ -19,7 +19,7 @@
                 <td><a href="/personalPage/${col.owner.id}">${col.owner.username}</a></td>
                 <td>${col.theme}</td>
                 <th>${col.items?size}</th>
-                <td>${col.description}</td>
+                <td><#noautoesc>${col.getHtmlDescription()}</#noautoesc></td>
             </tr>
         </#list>
         </tbody>

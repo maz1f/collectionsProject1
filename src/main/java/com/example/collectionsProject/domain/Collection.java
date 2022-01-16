@@ -1,5 +1,9 @@
 package com.example.collectionsProject.domain;
 
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
@@ -47,6 +51,13 @@ public class Collection {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getHtmlDescription() {
+        Parser parser = Parser.builder().build();
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        Node document = parser.parse(description);
+        return new String(renderer.render(document));
     }
 
     public void setDescription(String description) {

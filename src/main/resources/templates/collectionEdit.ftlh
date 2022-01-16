@@ -15,7 +15,7 @@
         <div class = "mb-3">
             <label for="editDescription" class="form-label">Collection description</label>
             <input type="text" class="form-control w-25"
-                   value = "<#if collection??>${collection.description}<#else>${col.description}</#if>"
+                   value = "<#if collection??><#noautoesc>${collection.description}</#noautoesc><#else><#noautoesc>${col.description}</#noautoesc></#if>"
                    name="description" id ="editDescription">
         </div>
         <input type="hidden" name="_csrf" value="${_csrf.token}" />

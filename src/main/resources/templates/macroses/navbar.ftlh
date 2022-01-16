@@ -32,12 +32,9 @@
                             <a class="nav-link" aria-current="page" href="/user">UsersList</a>
                         </li>
                 </#if>
-
             </ul>
             <#if name != "unknown">
-                <a class="nav-link" aria-current="page" href="/personalPage/${user.id}">
-                    Personal Account
-                </a>
+                <a class="nav-link" aria-current="page" href="/personalPage/${user.id}">Personal Account</a>
                 <@l.logout />
             </#if>
 

@@ -20,7 +20,7 @@
                 <td><a href="/personalPage/${maxSizeCollection.owner.id}">${maxSizeCollection.owner.username}</a></td>
                 <td>${maxSizeCollection.theme}</td>
                 <th>${maxSizeCollection.items?size}</th>
-                <td>${maxSizeCollection.description}</td>
+                <td><#noautoesc>${maxSizeCollection.getHtmlDescription()}</#noautoesc></td>
             </tr>
         </tbody>
 

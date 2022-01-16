@@ -3,7 +3,7 @@
 <@c.page>
     <div><h2>${col.name}</h2></div>
     <form action="/filter/${col.id}" method="post">
-        <div class="input-group mb-3 mt-4 w-25">
+        <div class="input-group mb-4 mt-4 w-25">
             <input type="text" class="form-control" name = "tag" placeholder="tag"/>
             <button type="submit" class="btn btn-outline-secondary">Filter</button>
         </div>
@@ -11,13 +11,13 @@
     </form>
 
     <#if name == col.owner.username || user.isAdmin()>
-        <div>
+        <div class = "mb-4">
             <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                     data-bs-target="#addNewItem" aria-expanded="false" aria-controls="addNewItem">
                 Add new item
             </button>
         </div>
-        <div class="collapse <#if item??>show</#if>" id = "addNewItem">
+        <div class="collapse <#if item??>show</#if> mb-4" id = "addNewItem">
             <form method="post" action="/addItem/${col.id}">
                 <div class="row g-3 mb-5 mt-2">
                     <div class="col-md">
@@ -50,27 +50,21 @@
             </form>
         </div>
     </#if>
-    <form action="/collection/${col.id}" method="post">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Item name</th>
-                <th scope="col">Item tag</th>
-                <#if name == col.owner.username || user.isAdmin()><th scope="col">Delete</th></#if>
-            </tr>
-            </thead>
-            <tbody>
-            <#list items as item>
-                <tr>
-                    <td>${item.name}</td>
-                    <td>${item.tag}</td>
-                    <#if name == col.owner.username || user.isAdmin()><td><a href="/deleteItem/${item.id}">Delete</a></td></#if>
-                </tr>
-            </#list>
-            </tbody>
-        </table>
-        <input type="hidden" name="_csrf" value="${_csrf.token}" />
-    </form>
 
-
+    <div class="card-group">
+        <#list items as item>
+            <div class="card border-dark">
+                <div class="card-body text-dark">
+                    <h5 class="card-title">${item.name}</h5>
+                    <p class="card-text">${item.tag}</p>
+                </div>
+                <div class="card-footer">
+                    <#if name == col.owner.username || user.isAdmin()>
+                        <a class="btn btn-primary" href="/deleteItem/${item.id}" role="button">Delete</a>
+                    <#else><small class="text-muted">Read-Only</small>
+                    </#if>
+                </div>
+            </div>
+        </#list>
+    </div>
 </@c.page>
