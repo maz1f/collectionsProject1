@@ -47,7 +47,7 @@ public class CollectionController {
         model.addAttribute("col", col);
         model.addAttribute("items", items);
         model.addAttribute("item", null);
-        return "collection";
+        return "redirect:/collection/" + col.getId();
     }
 
     @GetMapping("/collection/{col}")
@@ -68,7 +68,7 @@ public class CollectionController {
             items = itemRepo.findAllByCollection(col);
         model.addAttribute("col", col);
         model.addAttribute("items", items);
-        return "collection";
+        return "redirect:/collection/" + col.getId();
     }
 
     @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
@@ -98,7 +98,7 @@ public class CollectionController {
             model.addAttribute("owner", col.getOwner());
             Iterable<Collection> collections = collectionsRepo.findAllByOwner(col.getOwner());
             model.addAttribute("collections", collections);
-            return "personalPage";
+            return "redirect:/personalPage/" + col.getOwner().getId();
         }
 
     }
@@ -110,6 +110,6 @@ public class CollectionController {
         Iterable<Collection> collections = collectionsRepo.findAllByOwner(col.getOwner());
         model.addAttribute("collections", collections);
         model.addAttribute("owner", col.getOwner());
-        return "/personalPage";
+        return "redirect:/personalPage/" + col.getOwner().getId();
     }
 }

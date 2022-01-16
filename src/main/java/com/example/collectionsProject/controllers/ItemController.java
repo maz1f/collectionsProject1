@@ -30,6 +30,6 @@ public class ItemController {
         model.addAttribute("items", items);
         model.addAttribute("col", col);
         model.addAttribute("item", null);
-        return "collection";
+        return "redirect:/collection/" + item.getCollection().getId();
     }
 }

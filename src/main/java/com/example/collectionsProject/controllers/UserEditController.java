@@ -27,11 +27,18 @@ public class UserEditController {
         return "usersList";
     }
 
-    @GetMapping("{user}")
+    @PostMapping("{user}")
     public String editUser(@PathVariable User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
         return "editUser";
+    }
+
+    @PostMapping("delete/{user}")
+    public String deleteUser(@PathVariable User user, Model model) {
+        userRepo.delete(user);
+        model.addAttribute("users", userRepo.findAll());
+        return "redirect:/user";
     }
 
     @PostMapping
