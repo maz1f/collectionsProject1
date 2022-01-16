@@ -3,8 +3,8 @@ know = Session.SPRING_SECURITY_CONTEXT??
 >
 <#if know>
     <#assign
-    user = Session.SPRING_SECURITY_CONTEXT.authentication.principal
-    name = user.getUsername()
+    currentUser = Session.SPRING_SECURITY_CONTEXT.authentication.principal
+    name = currentUser.getUsername()
     >
 <#else>
     <#assign

@@ -10,7 +10,7 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
     </form>
 
-    <#if name == col.owner.username || user.isAdmin()>
+    <#if currentUser?? && (name == col.owner.username || currentUser.isAdmin())>
         <div class = "mb-4">
             <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                     data-bs-target="#addNewItem" aria-expanded="false" aria-controls="addNewItem">
@@ -59,12 +59,14 @@
                     <p class="card-text">${item.tag}</p>
                 </div>
                 <div class="card-footer">
-                    <#if name == col.owner.username || user.isAdmin()>
+                    <#if currentUser?? && (name == col.owner.username || currentUser.isAdmin())>
                         <a class="btn btn-primary" href="/deleteItem/${item.id}" role="button">Delete</a>
                     <#else><small class="text-muted">Read-Only</small>
                     </#if>
                 </div>
             </div>
+            <#else>
+            <h5>Collection is empty</h5>
         </#list>
     </div>
 </@c.page>

@@ -27,15 +27,17 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/registration">Registration</a>
                     </li>
-                    <#elseif user.isAdmin()>
+                    <#elseif currentUser?? && currentUser.isAdmin()>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="/user">UsersList</a>
                         </li>
                 </#if>
             </ul>
             <#if name != "unknown">
-                <a class="nav-link" aria-current="page" href="/personalPage/${user.id}">Personal Account</a>
+                <a class="nav-link" aria-current="page" href="/personalPage/${currentUser.id}">Personal Account</a>
                 <@l.logout />
+                <#else>
+                Read only
             </#if>
 
         </div>
