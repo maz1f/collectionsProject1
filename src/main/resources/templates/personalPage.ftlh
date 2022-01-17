@@ -68,8 +68,8 @@
                 <div class="card-footer">
                     <#if currentUser??>
                         <#if owner.equals(currentUser) || currentUser.isAdmin()>
-                            <a class="btn btn-primary" href="/collectionEdit/${col.id}" role="button">Edit</a>
-                            <a class="btn btn-primary" href="/deleteCollection/${col.id}" role="button">Delete</a>
+                            <a class="btn btn-outline-dark" href="/collectionEdit/${col.id}" role="button">Edit</a>
+                            <a class="btn btn-outline-dark" href="/deleteCollection/${col.id}" role="button">Delete</a>
                         <#else><small class="text-muted">Read-Only</small>
                         </#if>
                     <#else><small class="text-muted">Read-Only</small>

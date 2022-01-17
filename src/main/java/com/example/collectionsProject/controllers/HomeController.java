@@ -28,36 +28,6 @@ public class HomeController {
         return "";
     }
 
-    @GetMapping("/helloPage")
-    public String homePage(@RequestParam(name="name", required=false, defaultValue="unknown") String name, Model model) {
-        model.addAttribute("user", name);
-        return "helloPage";
-    }
-
-    @PostMapping("/helloPage")
-    public String getName(@RequestParam String name, Model model) {
-        model.addAttribute("user", name);
-        return "helloPage";
-    }
-
-    @PostMapping("/test")
-    public String delete(@RequestParam("idChecked") List<String> idrates){
-
-        if(idrates != null){
-            if (idrates.contains("1"))
-                return "redirect:test?message=It's right choose";
-            else return "redirect:test?message=Choose Artem Volov";
-        }
-        return "redirect:test";
-
-    }
-
-    @GetMapping("/test")
-    public String test(@RequestParam(name = "message", required = false, defaultValue = "") String message, Model model ) {
-        model.addAttribute("message", message);
-        return "test";
-    }
-
     @GetMapping("/allCollections")
     public String personPage(Model model){
         Iterable<Collection> collections = collectionsRepo.findAll();

@@ -12,12 +12,6 @@
                     <a class="nav-link" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/test">Test</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/helloPage">Say Hello</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/allCollections">Collections List</a>
                 </li>
                 <#if name == "unknown">
@@ -34,7 +28,7 @@
                 </#if>
             </ul>
             <#if name != "unknown">
-                <a class="nav-link" aria-current="page" href="/personalPage/${currentUser.id}">Personal Account</a>
+                <a class="btn btn-outline-primary me-3" href="/personalPage/${currentUser.id}" role="button">Personal Account</a>
                 <@l.logout />
                 <#else>
                 Read only
