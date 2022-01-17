@@ -60,7 +60,8 @@
                 </div>
                 <div class="card-footer">
                     <#if currentUser?? && (name == col.owner.username || currentUser.isAdmin())>
-                        <a class="btn btn-primary" href="/deleteItem/${item.id}" role="button">Delete</a>
+                        <a class="btn btn-outline-secondary" href="/editItem/${item.id}" role="button">Edit</a>
+                        <a class="btn btn-outline-secondary" href="/deleteItem/${item.id}" role="button">Delete</a>
                     <#else><small class="text-muted">Read-Only</small>
                     </#if>
                 </div>
