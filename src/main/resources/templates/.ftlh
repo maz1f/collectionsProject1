@@ -3,6 +3,9 @@
     <div class="mb-3">
         <h3>Tags cloud:</h3>
     </div>
+    <#list tags as tag>
+        <a href="/showByTag/${tag.id}">${tag.tagName}</a>
+    </#list>
     <div class="btn-group mb-4">
         <#list tags as tag>
             <a href="/showByTag/${tag.id}" class="btn btn-outline-primary" aria-current="page">${tag.tagName}</a>
