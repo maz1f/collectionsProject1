@@ -26,29 +26,7 @@ public class CollectionController {
     @Autowired
     private ItemRepo itemRepo;
 
-    @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
-    @PostMapping("/addItem/{col}")
-    public String add(@AuthenticationPrincipal User user,
-                      @PathVariable Collection col,
-                      @Valid Item item,
-                      BindingResult bindingResult,
-                      Model model
-    ) {
 
-        item.setCollection(col);
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
-            model.mergeAttributes(errorsMap);
-            model.addAttribute("item", item);
-        } else {
-            itemRepo.save(item);
-        }
-        Iterable<Item> items = itemRepo.findAllByCollection(col);
-        model.addAttribute("col", col);
-        model.addAttribute("items", items);
-        model.addAttribute("item", null);
-        return "redirect:/collection/" + col.getId();
-    }
 
     @GetMapping("/collection/{col}")
     public String showCollection(@PathVariable Collection col, Model model) {

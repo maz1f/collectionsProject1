@@ -1,6 +1,14 @@
 <#import "macroses/common.ftlh" as c>
 <@c.page>
-    <h1>Hello, it's main page of my project</h1>
+    <div class="mb-3">
+        <h3>Tags cloud:</h3>
+    </div>
+    <div class="btn-group mb-4">
+        <#list tags as tag>
+            <a href="/showByTag/${tag.id}" class="btn btn-outline-primary" aria-current="page">${tag.tagName}</a>
+        </#list>
+    </div>
+
     <div class = "mt-5">
         <h2>Largest collection</h2>
     </div>
@@ -25,4 +33,5 @@
         </tbody>
 
     </table>
+
 </@c.page>
