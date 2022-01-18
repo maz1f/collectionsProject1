@@ -1,18 +1,20 @@
 <#import "macroses/common.ftlh" as c>
 <@c.page>
-    <div class="mb-3">
-        <h3>Tags cloud:</h3>
+
+    <div class = "mb-4">
+        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse"
+                data-bs-target="#showTags" aria-expanded="false" aria-controls="showTags">
+            Tags cloud
+        </button>
     </div>
-    <#list tags as tag>
-        <a href="/showByTag/${tag.id}">${tag.tagName}</a>
-    </#list>
-    <div class="btn-group mb-4">
+
+    <div class="collapse mb-4" id = "showTags">
         <#list tags as tag>
-            <a href="/showByTag/${tag.id}" class="btn btn-outline-primary" aria-current="page">${tag.tagName}</a>
+            <a href="/showByTag/${tag.id}">${tag.tagName}</a>
         </#list>
     </div>
 
-    <div class = "mt-5">
+    <div>
         <h2>Largest collection</h2>
     </div>
     <table class="table mt-2">
@@ -26,13 +28,13 @@
         </tr>
         </thead>
         <tbody>
-            <tr>
-                <td><a href="/collection/${maxSizeCollection.id}">${maxSizeCollection.name}</a></td>
-                <td><a href="/personalPage/${maxSizeCollection.owner.id}">${maxSizeCollection.owner.username}</a></td>
-                <td>${maxSizeCollection.theme}</td>
-                <th>${maxSizeCollection.items?size}</th>
-                <td><#noautoesc>${maxSizeCollection.getHtmlDescription()}</#noautoesc></td>
-            </tr>
+        <tr>
+            <td><a href="/collection/${maxSizeCollection.id}">${maxSizeCollection.name}</a></td>
+            <td><a href="/personalPage/${maxSizeCollection.owner.id}">${maxSizeCollection.owner.username}</a></td>
+            <td>${maxSizeCollection.theme}</td>
+            <th>${maxSizeCollection.items?size}</th>
+            <td><#noautoesc>${maxSizeCollection.getHtmlDescription()}</#noautoesc></td>
+        </tr>
         </tbody>
 
     </table>
