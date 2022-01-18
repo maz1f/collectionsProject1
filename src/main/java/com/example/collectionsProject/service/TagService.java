@@ -18,6 +18,7 @@ public class TagService {
 
     public void setTags(Item item, String tag) {
         String[] tags = tag.split(" ");
+        String tagResult = "";
         if (item.getTagSet() != null) {
             item.getTagSet().clear();
         } else {
@@ -25,6 +26,9 @@ public class TagService {
         }
         for (String t : tags) {
             Tag newTag;
+            if (t.charAt(0) != '#'){
+                t = "#" + t;
+            }
             if (tagRepo.findAllByTagName(t).isEmpty()) {
                 newTag = new Tag(t);
                 tagRepo.save(newTag);
@@ -33,8 +37,8 @@ public class TagService {
             }
             item.getTagSet().add(newTag);
             newTag.getItems().add(item);
+            tagResult += t + " ";
         }
-        itemRepo.save(item);
-
+        item.setTag(tagResult.substring(0, tagResult.length() - 1));
     }
 }

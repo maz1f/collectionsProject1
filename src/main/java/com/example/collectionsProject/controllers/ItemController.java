@@ -93,9 +93,9 @@ public class ItemController {
             return "itemEditor";
         } else {
             currentItem.setName(item.getName());
-            currentItem.setTag(item.getTag());
-            itemRepo.save(currentItem);
+            //currentItem.setTag(item.getTag());
             tagService.setTags(currentItem, item.getTag());
+            itemRepo.save(currentItem);
             model.addAttribute("col", currentItem.getCollection());
             Iterable<Item> items = itemRepo.findAllByCollection(currentItem.getCollection());
             model.addAttribute("items", items);
