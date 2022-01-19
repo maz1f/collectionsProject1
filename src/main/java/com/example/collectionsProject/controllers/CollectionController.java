@@ -1,20 +1,16 @@
 package com.example.collectionsProject.controllers;
 
+import com.example.collectionsProject.Utils.ControllerUtils;
 import com.example.collectionsProject.domain.Collection;
-import com.example.collectionsProject.domain.Item;
-import com.example.collectionsProject.domain.User;
-import com.example.collectionsProject.repos.CollectionsRepo;
-import com.example.collectionsProject.repos.ItemRepo;
+import com.example.collectionsProject.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -22,32 +18,15 @@ import java.util.Map;
 @Controller
 public class CollectionController {
     @Autowired
-    private CollectionsRepo collectionsRepo;
-    @Autowired
-    private ItemRepo itemRepo;
-
-
+    private CollectionService collectionService;
 
     @GetMapping("/collection/{col}")
     public String showCollection(@PathVariable Collection col, Model model) {
-        Iterable<Item> items = itemRepo.findAllByCollection(col);
         model.addAttribute("col", col);
-        model.addAttribute("items", items);
+        model.addAttribute("items", collectionService.getItems(col));
         return "collection";
     }
 
-    @PostMapping("/filter/{col}")
-    public String filter(@PathVariable Collection col, @RequestParam String tag, Model model) {
-        Iterable<Item> items;
-        if (tag != null && !tag.isEmpty()) {
-            items = itemRepo.findByTag(tag);
-        }
-        else
-            items = itemRepo.findAllByCollection(col);
-        model.addAttribute("col", col);
-        model.addAttribute("items", items);
-        return "redirect:/collection/" + col.getId();
-    }
 
     @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
     @GetMapping("/collectionEdit/{col}")
@@ -69,13 +48,10 @@ public class CollectionController {
             model.addAttribute("collection", collection);
             return "collectionEdit";
         } else {
-            col.setName(collection.getName());
-            col.setDescription(collection.getDescription());
-            collectionsRepo.save(col);
+            collectionService.editCollection(col, collection);
             model.addAttribute("collection", null);
             model.addAttribute("owner", col.getOwner());
-            Iterable<Collection> collections = collectionsRepo.findAllByOwner(col.getOwner());
-            model.addAttribute("collections", collections);
+            model.addAttribute("collections", collectionService.getCollections(col.getOwner()));
             return "redirect:/personalPage/" + col.getOwner().getId();
         }
 
@@ -84,10 +60,15 @@ public class CollectionController {
     @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
     @GetMapping("/deleteCollection/{col}")
     public String deleteCollection(@PathVariable Collection col, Model model) {
-        collectionsRepo.delete(col);
-        Iterable<Collection> collections = collectionsRepo.findAllByOwner(col.getOwner());
-        model.addAttribute("collections", collections);
+        collectionService.deleteCollection(col);
+        model.addAttribute("collections", collectionService.getCollections(col.getOwner()));
         model.addAttribute("owner", col.getOwner());
         return "redirect:/personalPage/" + col.getOwner().getId();
+    }
+
+    @GetMapping("/allCollections")
+    public String showAllCollection(Model model){
+        model.addAttribute("collections", collectionService.getAllColection());
+        return "allCollections";
     }
 }

@@ -28,7 +28,7 @@
                 </#if>
             </ul>
             <#if name != "unknown">
-                <a class="btn btn-outline-primary me-3" href="/personalPage/${currentUser.id}" role="button">Personal Account</a>
+                <a class="btn btn-outline-primary me-3 mb-2 mt-2" href="/personalPage/${currentUser.id}" role="button">Personal Account</a>
                 <@l.logout />
                 <#else>
                 Read only

@@ -1,13 +1,11 @@
 package com.example.collectionsProject.controllers;
 
+import com.example.collectionsProject.Utils.ControllerUtils;
 import com.example.collectionsProject.domain.Collection;
 import com.example.collectionsProject.domain.Item;
 import com.example.collectionsProject.domain.Tag;
 import com.example.collectionsProject.domain.User;
-import com.example.collectionsProject.repos.CollectionsRepo;
-import com.example.collectionsProject.repos.ItemRepo;
-import com.example.collectionsProject.repos.TagRepo;
-import com.example.collectionsProject.service.TagService;
+import com.example.collectionsProject.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -24,13 +23,7 @@ import java.util.Map;
 @Controller
 public class ItemController {
     @Autowired
-    private CollectionsRepo collectionsRepo;
-    @Autowired
-    private ItemRepo itemRepo;
-    @Autowired
-    private TagRepo tagRepo;
-    @Autowired
-    private TagService tagService;
+    private ItemService itemService;
 
     @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
     @PostMapping("/addItem/{col}")
@@ -47,12 +40,10 @@ public class ItemController {
             model.mergeAttributes(errorsMap);
             model.addAttribute("item", item);
         } else {
-            tagService.setTags(item, item.getTag());
-            itemRepo.save(item);
+            itemService.setTags(item, item.getTag());
         }
-        Iterable<Item> items = itemRepo.findAllByCollection(col);
         model.addAttribute("col", col);
-        model.addAttribute("items", items);
+        model.addAttribute("items", itemService.getItems(col));
         model.addAttribute("item", null);
         return "redirect:/collection/" + col.getId();
     }
@@ -63,11 +54,9 @@ public class ItemController {
                              @PathVariable Item item,
                              Model model
     ) {
-        Collection col = item.getCollection();
-        itemRepo.delete(item);
-        Iterable<Item> items = itemRepo.findAllByCollection(col);
-        model.addAttribute("items", items);
-        model.addAttribute("col", col);
+        itemService.deleteItem(item);
+        model.addAttribute("items", itemService.getItems(item.getCollection()));
+        model.addAttribute("col", item.getCollection());
         model.addAttribute("item", null);
         return "redirect:/collection/" + item.getCollection().getId();
     }
@@ -92,16 +81,31 @@ public class ItemController {
             model.addAttribute("item", item);
             return "itemEditor";
         } else {
-            currentItem.setName(item.getName());
-            //currentItem.setTag(item.getTag());
-            tagService.setTags(currentItem, item.getTag());
-            itemRepo.save(currentItem);
+            itemService.editItem(currentItem, item);
             model.addAttribute("col", currentItem.getCollection());
-            Iterable<Item> items = itemRepo.findAllByCollection(currentItem.getCollection());
-            model.addAttribute("items", items);
+            model.addAttribute("items", itemService.getItems(currentItem.getCollection()));
             model.addAttribute("item", null);
             return "redirect:/collection/" + currentItem.getCollection().getId();
         }
 
+    }
+
+    @PostMapping("/filter/{col}")
+    public String filter(@PathVariable Collection col, @RequestParam String tag, Model model) {
+        Iterable<Item> items;
+        if (tag != null && !tag.isEmpty()) {
+            items = itemService.getItemsByTag(new Tag(tag)); // не работает!!!!
+        }
+        else
+            items = itemService.getItems(col);
+        model.addAttribute("col", col);
+        model.addAttribute("items", items);
+        return "redirect:/collection/" + col.getId();
+    }
+
+    @GetMapping("/showByTag/{tag}")
+    public String showByTag(@PathVariable Tag tag, Model model) {
+        model.addAttribute("items", itemService.getItemsByTag(tag));
+        return "showByTag";
     }
 }

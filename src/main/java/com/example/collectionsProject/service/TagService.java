@@ -16,29 +16,7 @@ public class TagService {
     @Autowired
     TagRepo tagRepo;
 
-    public void setTags(Item item, String tag) {
-        String[] tags = tag.split(" ");
-        String tagResult = "";
-        if (item.getTagSet() != null) {
-            item.getTagSet().clear();
-        } else {
-            item.setTagSet(new HashSet<>());
-        }
-        for (String t : tags) {
-            Tag newTag;
-            if (t.charAt(0) != '#'){
-                t = "#" + t;
-            }
-            if (tagRepo.findAllByTagName(t).isEmpty()) {
-                newTag = new Tag(t);
-                tagRepo.save(newTag);
-            } else {
-                newTag = tagRepo.findByTagName(t);
-            }
-            item.getTagSet().add(newTag);
-            newTag.getItems().add(item);
-            tagResult += t + " ";
-        }
-        item.setTag(tagResult.substring(0, tagResult.length() - 1));
+    public Iterable<Tag> getAllTags() {
+        return tagRepo.findAll();
     }
 }

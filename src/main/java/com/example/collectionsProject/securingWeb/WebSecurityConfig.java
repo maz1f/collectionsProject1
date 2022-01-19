@@ -1,6 +1,5 @@
 package com.example.collectionsProject.securingWeb;
-import com.example.collectionsProject.repos.UserRepo;
-import com.example.collectionsProject.service.UserService;
+import com.example.collectionsProject.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
     @Autowired
-    private UserService userService;
+    private UserLoginService userLoginService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -40,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService)
+        auth.userDetailsService(userLoginService)
                 .passwordEncoder(encoder());
 
     }
