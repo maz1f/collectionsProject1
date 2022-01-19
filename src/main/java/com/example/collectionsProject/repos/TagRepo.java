@@ -1,7 +1,7 @@
 package com.example.collectionsProject.repos;
 
-import com.example.collectionsProject.domain.Item;
-import com.example.collectionsProject.domain.Tag;
+import com.example.collectionsProject.models.Item;
+import com.example.collectionsProject.models.Tag;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

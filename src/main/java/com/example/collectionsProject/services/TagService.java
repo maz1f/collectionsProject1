@@ -1,13 +1,10 @@
-package com.example.collectionsProject.service;
+package com.example.collectionsProject.services;
 
-import com.example.collectionsProject.domain.Item;
-import com.example.collectionsProject.domain.Tag;
+import com.example.collectionsProject.models.Tag;
 import com.example.collectionsProject.repos.ItemRepo;
 import com.example.collectionsProject.repos.TagRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
 
 @Service
 public class TagService {

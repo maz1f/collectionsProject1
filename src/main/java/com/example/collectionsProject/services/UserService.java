@@ -1,7 +1,7 @@
-package com.example.collectionsProject.service;
+package com.example.collectionsProject.services;
 
-import com.example.collectionsProject.domain.Role;
-import com.example.collectionsProject.domain.User;
+import com.example.collectionsProject.models.Role;
+import com.example.collectionsProject.models.User;
 import com.example.collectionsProject.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

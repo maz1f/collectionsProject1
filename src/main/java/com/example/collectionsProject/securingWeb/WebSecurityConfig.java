@@ -1,5 +1,5 @@
 package com.example.collectionsProject.securingWeb;
-import com.example.collectionsProject.service.UserLoginService;
+import com.example.collectionsProject.services.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

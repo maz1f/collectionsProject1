@@ -1,4 +1,4 @@
-package com.example.collectionsProject.domain;
+package com.example.collectionsProject.models;
 
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;

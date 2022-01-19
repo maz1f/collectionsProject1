@@ -1,11 +1,11 @@
 package com.example.collectionsProject.controllers;
 
 import com.example.collectionsProject.Utils.ControllerUtils;
-import com.example.collectionsProject.domain.Collection;
-import com.example.collectionsProject.domain.Item;
-import com.example.collectionsProject.domain.Tag;
-import com.example.collectionsProject.domain.User;
-import com.example.collectionsProject.service.ItemService;
+import com.example.collectionsProject.models.Collection;
+import com.example.collectionsProject.models.Item;
+import com.example.collectionsProject.models.Tag;
+import com.example.collectionsProject.models.User;
+import com.example.collectionsProject.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -108,4 +108,15 @@ public class ItemController {
         model.addAttribute("items", itemService.getItemsByTag(tag));
         return "showByTag";
     }
+
+    @GetMapping("/likeItem/{item}")
+    public String likeItem(@PathVariable Item item,
+                           @AuthenticationPrincipal User currentUser,
+                           Model model) {
+        itemService.like(item, currentUser);
+        model.addAttribute("col", item.getCollection());
+        model.addAttribute("items", item.getCollection().getItems());
+        return "redirect:/collection/" + item.getCollection().getId();
+    }
+
 }

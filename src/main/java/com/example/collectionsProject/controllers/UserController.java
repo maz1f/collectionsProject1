@@ -1,9 +1,9 @@
 package com.example.collectionsProject.controllers;
 
 import com.example.collectionsProject.Utils.ControllerUtils;
-import com.example.collectionsProject.domain.Collection;
-import com.example.collectionsProject.domain.User;
-import com.example.collectionsProject.service.CollectionService;
+import com.example.collectionsProject.models.Collection;
+import com.example.collectionsProject.models.User;
+import com.example.collectionsProject.services.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

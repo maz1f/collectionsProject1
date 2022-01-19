@@ -1,7 +1,4 @@
-package com.example.collectionsProject.domain;
-
-import com.example.collectionsProject.service.TagService;
-import org.springframework.beans.factory.annotation.Autowired;
+package com.example.collectionsProject.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -26,6 +23,13 @@ public class Item {
             inverseJoinColumns = @JoinColumn(name = "tags_id")
     )
     private Set<Tag> tagSet;
+    @ManyToMany
+    @JoinTable(
+            name="item_likes",
+            joinColumns = @JoinColumn(name="item_id"),
+            inverseJoinColumns = @JoinColumn(name="user_id")
+    )
+    private Set<User> likes = new HashSet<>();
 
     public Item(String name, String tag, Collection collection) {
         this.name = name;
@@ -77,5 +81,13 @@ public class Item {
 
     public void setTagSet(Set<Tag> tagSet) {
         this.tagSet = tagSet;
+    }
+
+    public Set<User> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Set<User> likes) {
+        this.likes = likes;
     }
 }

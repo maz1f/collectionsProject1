@@ -1,4 +1,4 @@
-package com.example.collectionsProject.domain;
+package com.example.collectionsProject.models;
 
 import org.springframework.security.core.GrantedAuthority;
 

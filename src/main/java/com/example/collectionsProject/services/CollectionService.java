@@ -1,8 +1,8 @@
-package com.example.collectionsProject.service;
+package com.example.collectionsProject.services;
 
-import com.example.collectionsProject.domain.Collection;
-import com.example.collectionsProject.domain.Item;
-import com.example.collectionsProject.domain.User;
+import com.example.collectionsProject.models.Collection;
+import com.example.collectionsProject.models.Item;
+import com.example.collectionsProject.models.User;
 import com.example.collectionsProject.repos.CollectionsRepo;
 import com.example.collectionsProject.repos.ItemRepo;
 import org.springframework.beans.factory.annotation.Autowired;

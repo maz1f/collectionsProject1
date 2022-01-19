@@ -1,7 +1,7 @@
 package com.example.collectionsProject.controllers;
 
-import com.example.collectionsProject.service.CollectionService;
-import com.example.collectionsProject.service.TagService;
+import com.example.collectionsProject.services.CollectionService;
+import com.example.collectionsProject.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

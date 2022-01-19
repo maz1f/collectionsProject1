@@ -1,4 +1,4 @@
-package com.example.collectionsProject.domain;
+package com.example.collectionsProject.models;
 
 import javax.persistence.*;
 import java.util.HashSet;
