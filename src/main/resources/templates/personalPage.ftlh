@@ -56,25 +56,27 @@
             </div>
         </#if>
     </#if>
-    <div class="card-group">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         <#list collections as col>
-            <div class="card border-dark">
-                <div class="card-header">
-                    <h3>${col.name}</h3>
-                </div>
-                <div class="card-body text-dark">
-                    <p class="card-text"><#noautoesc>${col.getHtmlDescription()}</#noautoesc></p>
-                    <a href="/collection/${col.id}" class="btn btn-dark">Show collection</a>
-                </div>
-                <div class="card-footer">
-                    <#if currentUser??>
-                        <#if owner.equals(currentUser) || currentUser.isAdmin()>
-                            <a class="btn btn-outline-dark" href="/collectionEdit/${col.id}" role="button">Edit</a>
-                            <a class="btn btn-outline-dark" href="/deleteCollection/${col.id}" role="button">Delete</a>
+            <div class="col">
+                <div class="card border-dark">
+                    <div class="card-header">
+                        <h3>${col.name}</h3>
+                    </div>
+                    <div class="card-body text-dark">
+                        <p class="card-text"><#noautoesc>${col.getHtmlDescription()}</#noautoesc></p>
+                        <a href="/collection/${col.id}" class="btn btn-dark">Show collection</a>
+                    </div>
+                    <div class="card-footer">
+                        <#if currentUser??>
+                            <#if owner.equals(currentUser) || currentUser.isAdmin()>
+                                <a class="btn btn-outline-dark" href="/collectionEdit/${col.id}" role="button">Edit</a>
+                                <a class="btn btn-outline-dark" href="/deleteCollection/${col.id}" role="button">Delete</a>
+                            <#else><small class="text-muted">Read-Only</small>
+                            </#if>
                         <#else><small class="text-muted">Read-Only</small>
                         </#if>
-                    <#else><small class="text-muted">Read-Only</small>
-                    </#if>
+                    </div>
                 </div>
             </div>
         <#else>

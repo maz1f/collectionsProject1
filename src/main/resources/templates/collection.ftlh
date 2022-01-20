@@ -52,23 +52,25 @@
         </div>
     </#if>
 
-    <div class="card-group">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         <#list items as item>
-            <div class="card border-dark">
-                <div class="card-body text-dark">
-                    <h5 class="card-title">${item.name}</h5>
-                    <p class="card-text">${item.tag}</p>
-                </div>
-                <div class="card-footer">
-                    <#if currentUser?? && (name == col.owner.username || currentUser.isAdmin())>
-                        <a class="btn btn-outline-dark" href="/editItem/${item.id}" role="button">Edit</a>
-                        <a class="btn btn-outline-dark" href="/deleteItem/${item.id}" role="button">Delete</a>
-                    </#if>
-                    <#if name == "unknown">
-                        <small class="text-muted">Read-Only</small>
-                    <#else> <@l.like item currentUser/>
-                    </#if>
+            <div class="col">
+                <div class="card border-dark">
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">${item.name}</h5>
+                        <p class="card-text">${item.tag}</p>
+                    </div>
+                    <div class="card-footer">
+                        <#if currentUser?? && (name == col.owner.username || currentUser.isAdmin())>
+                            <a class="btn btn-outline-dark" href="/editItem/${item.id}" role="button">Edit</a>
+                            <a class="btn btn-outline-dark" href="/deleteItem/${item.id}" role="button">Delete</a>
+                        </#if>
+                        <#if name == "unknown">
+                            <small class="text-muted">Read-Only</small>
+                        <#else> <@l.like item currentUser/>
+                        </#if>
 
+                    </div>
                 </div>
             </div>
         <#else>
