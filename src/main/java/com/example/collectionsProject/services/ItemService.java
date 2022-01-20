@@ -4,22 +4,22 @@ import com.example.collectionsProject.models.Collection;
 import com.example.collectionsProject.models.Item;
 import com.example.collectionsProject.models.Tag;
 import com.example.collectionsProject.models.User;
-import com.example.collectionsProject.repos.CollectionsRepo;
 import com.example.collectionsProject.repos.ItemRepo;
 import com.example.collectionsProject.repos.TagRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class ItemService {
     @Autowired
     private ItemRepo itemRepo;
     @Autowired
-    private CollectionsRepo collectionsRepo;
-    @Autowired
     private TagRepo tagRepo;
+    private List<Item> lastAddedItems = new ArrayList<>();
 
     public Iterable<Item> getItemsByTagAndCollection(String tag, Collection collection) {
         return itemRepo.findAllByTagContainsAndCollection(tag, collection);
@@ -77,6 +77,15 @@ public class ItemService {
             item.getLikes().add(user);
         }
         itemRepo.save(item);
+    }
+
+    public void addItem(Item item) {
+        setTags(item, item.getTag());
+    }
+
+    public List<Item> getLastAddedItems() {
+        lastAddedItems = itemRepo.getLastFive();
+        return this.lastAddedItems;
     }
 
 }

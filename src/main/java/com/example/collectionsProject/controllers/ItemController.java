@@ -41,7 +41,7 @@ public class ItemController {
             model.mergeAttributes(errorsMap);
             model.addAttribute("item", item);
         } else {
-            itemService.setTags(item, item.getTag());
+            itemService.addItem(item);
         }
         model.addAttribute("col", col);
         model.addAttribute("items", itemService.getItems(col));

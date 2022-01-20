@@ -18,7 +18,7 @@
         <h2>Largest collection</h2>
     </div>
 
-    <div class="card border-dark">
+    <div class="card border-dark mb-5">
         <div class="card-header">
             <h3>${maxSizeCollection.name}</h3>
         </div>
@@ -30,5 +30,22 @@
             Collection size: ${maxSizeCollection.items?size}
         </div>
     </div>
-
+    <#if lastAddedItems??>
+        <h3>Last added items</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <#list lastAddedItems as item>
+                <div class="col">
+                <div class="card border-dark">
+                    <div class="card-body text-dark">
+                        <h5 class="card-title">${item.name}</h5>
+                        <p class="card-text">${item.tag}</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Collection: ${item.collection.name}</small>
+                    </div>
+                </div>
+                </div>
+            </#list>
+        </div>
+    </#if>
 </@c.page>
