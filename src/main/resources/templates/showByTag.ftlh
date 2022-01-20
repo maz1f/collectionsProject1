@@ -1,4 +1,6 @@
 <#import "macroses/common.ftlh" as c>
+<#include "macroses/security.ftlh">
+<#import "macroses/like.ftlh" as l>
 <@c.page>
     <div class="card-group">
         <#list items as item>
@@ -8,7 +10,10 @@
                     <p class="card-text">${item.tag}</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">Read-Only</small>
+                    <#if name == "unknown">
+                        <small class="text-muted">Read-Only</small>
+                    <#else> <@l.like item currentUser/>
+                    </#if>
                 </div>
             </div>
         <#else>

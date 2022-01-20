@@ -9,4 +9,5 @@ public interface ItemRepo extends CrudRepository<Item, Long> {
     Iterable<Item> findAllByCollection(Collection col);
     Iterable<Item> findByTag(String tag);
     Iterable<Item> findAllByTagSetContains(Tag tag);
+    Iterable<Item> findAllByTagContainsAndCollection(String tag, Collection collection);
 }

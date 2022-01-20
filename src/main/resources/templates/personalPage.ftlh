@@ -60,10 +60,11 @@
         <#list collections as col>
             <div class="card border-dark">
                 <div class="card-header">
-                    <h3><a href="/collection/${col.id}">${col.name}</a></h3>
+                    <h3>${col.name}</h3>
                 </div>
                 <div class="card-body text-dark">
                     <p class="card-text"><#noautoesc>${col.getHtmlDescription()}</#noautoesc></p>
+                    <a href="/collection/${col.id}" class="btn btn-dark">Show collection</a>
                 </div>
                 <div class="card-footer">
                     <#if currentUser??>

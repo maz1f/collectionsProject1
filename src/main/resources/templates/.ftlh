@@ -14,29 +14,21 @@
         </#list>
     </div>
 
-    <div>
+    <div class = "mb-2">
         <h2>Largest collection</h2>
     </div>
-    <table class="table mt-2">
-        <thead>
-        <tr>
-            <th scope="col">Collection name</th>
-            <th scope="col">Owner</th>
-            <th scope="col">Theme</th>
-            <th scope="col">Size</th>
-            <th scope="col">Descriprion</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td><a href="/collection/${maxSizeCollection.id}">${maxSizeCollection.name}</a></td>
-            <td><a href="/personalPage/${maxSizeCollection.owner.id}">${maxSizeCollection.owner.username}</a></td>
-            <td>${maxSizeCollection.theme}</td>
-            <th>${maxSizeCollection.items?size}</th>
-            <td><#noautoesc>${maxSizeCollection.getHtmlDescription()}</#noautoesc></td>
-        </tr>
-        </tbody>
 
-    </table>
+    <div class="card border-dark">
+        <div class="card-header">
+            <h3>${maxSizeCollection.name}</h3>
+        </div>
+        <div class="card-body text-dark">
+            <p class="card-text"><#noautoesc>${maxSizeCollection.getHtmlDescription()}</#noautoesc></p>
+            <a href="/collection/${maxSizeCollection.id}" class="btn btn-dark">Show collection</a>
+        </div>
+        <div class="card-footer">
+            Collection size: ${maxSizeCollection.items?size}
+        </div>
+    </div>
 
 </@c.page>

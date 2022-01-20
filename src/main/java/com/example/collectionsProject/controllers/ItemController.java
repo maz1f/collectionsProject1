@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Map;
 
@@ -94,12 +95,17 @@ public class ItemController {
     public String filter(@PathVariable Collection col, @RequestParam String tag, Model model) {
         Iterable<Item> items;
         if (tag != null && !tag.isEmpty()) {
-            items = itemService.getItemsByTag(new Tag(tag)); // не работает!!!!
+            items = itemService.getItemsByTagAndCollection(tag, col);
         }
         else
             items = itemService.getItems(col);
         model.addAttribute("col", col);
         model.addAttribute("items", items);
+        return "collection";
+    }
+
+    @GetMapping("/filter/{col}")
+    public String redirectToCollectionAfterFilterLike(@PathVariable Collection col) {
         return "redirect:/collection/" + col.getId();
     }
 
@@ -112,11 +118,11 @@ public class ItemController {
     @GetMapping("/likeItem/{item}")
     public String likeItem(@PathVariable Item item,
                            @AuthenticationPrincipal User currentUser,
+                           HttpServletRequest request,
                            Model model) {
         itemService.like(item, currentUser);
-        model.addAttribute("col", item.getCollection());
-        model.addAttribute("items", item.getCollection().getItems());
-        return "redirect:/collection/" + item.getCollection().getId();
+        String str = request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
     }
 
 }

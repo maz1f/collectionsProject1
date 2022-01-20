@@ -21,6 +21,10 @@ public class ItemService {
     @Autowired
     private TagRepo tagRepo;
 
+    public Iterable<Item> getItemsByTagAndCollection(String tag, Collection collection) {
+        return itemRepo.findAllByTagContainsAndCollection(tag, collection);
+    }
+
     public Iterable<Item> getItemsByTag(Tag tag) {
         return itemRepo.findAllByTagSetContains(tag);
     }
