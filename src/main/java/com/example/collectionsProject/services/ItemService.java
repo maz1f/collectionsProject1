@@ -1,9 +1,6 @@
 package com.example.collectionsProject.services;
 
-import com.example.collectionsProject.models.Collection;
-import com.example.collectionsProject.models.Item;
-import com.example.collectionsProject.models.Tag;
-import com.example.collectionsProject.models.User;
+import com.example.collectionsProject.models.*;
 import com.example.collectionsProject.repos.ItemRepo;
 import com.example.collectionsProject.repos.TagRepo;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,8 @@
 package com.example.collectionsProject.controllers;
 
 import com.example.collectionsProject.Utils.ControllerUtils;
-import com.example.collectionsProject.models.Collection;
-import com.example.collectionsProject.models.Item;
-import com.example.collectionsProject.models.Tag;
-import com.example.collectionsProject.models.User;
+import com.example.collectionsProject.models.*;
+import com.example.collectionsProject.services.CommentService;
 import com.example.collectionsProject.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,6 +23,8 @@ import java.util.Map;
 public class ItemController {
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private CommentService commentService;
 
     @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
     @PostMapping("/addItem/{col}")
@@ -119,9 +119,28 @@ public class ItemController {
     public String likeItem(@PathVariable Item item,
                            @AuthenticationPrincipal User currentUser,
                            HttpServletRequest request,
-                           Model model) {
+                           Model model
+    ) {
         itemService.like(item, currentUser);
         String str = request.getHeader("referer");
+        return "redirect:" + request.getHeader("referer");
+    }
+
+    @GetMapping("/{item}/comments")
+    public String showComments(@PathVariable Item item, Model model) {
+        model.addAttribute("comments", commentService.getCommentsByItem(item));
+        model.addAttribute("item", item);
+        return "comments";
+    }
+
+    @PostMapping("/comment/{item}")
+    public String comment(@PathVariable Item item,
+                          @AuthenticationPrincipal User currentUser,
+                          @RequestParam String comment,
+                          HttpServletRequest request
+    ) {
+
+        commentService.addComment(comment, currentUser, item);
         return "redirect:" + request.getHeader("referer");
     }
 

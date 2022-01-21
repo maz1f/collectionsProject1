@@ -30,6 +30,8 @@ public class Item {
             inverseJoinColumns = @JoinColumn(name="user_id")
     )
     private Set<User> likes = new HashSet<>();
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Comment> comments = new HashSet<>();
 
     public Item(String name, String tag, Collection collection) {
         this.name = name;
@@ -89,5 +91,13 @@ public class Item {
 
     public void setLikes(Set<User> likes) {
         this.likes = likes;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 }

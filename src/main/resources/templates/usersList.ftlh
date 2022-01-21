@@ -15,7 +15,7 @@
         <tbody>
         <#list users as user>
             <tr>
-                <td><a href="/personalPage/${user.id}">${user.username}</a></td>
+                <td><a class="btn btn-outline-secondary" href="/personalPage/${user.id}" role="button">${user.username}</a></td>
                 <td><#list user.roles as role>${role}<#sep>, </#list></td>
                 <td><#if user.isAdmin()>yes<#else>no</#if></td>
                 <td><form action="/user/${user.id}" method="post">
