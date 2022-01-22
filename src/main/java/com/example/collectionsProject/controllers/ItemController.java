@@ -10,10 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -128,7 +125,6 @@ public class ItemController {
 
     @GetMapping("/{item}/comments")
     public String showComments(@PathVariable Item item, Model model) {
-        model.addAttribute("comments", commentService.getCommentsByItem(item));
         model.addAttribute("item", item);
         return "comments";
     }
@@ -144,4 +140,16 @@ public class ItemController {
         return "redirect:" + request.getHeader("referer");
     }
 
+    @GetMapping("/updateComments/{item}")
+    public String updateComments(@PathVariable Item item, Model model) {
+        model.addAttribute("item", item);
+        model.addAttribute("comments", commentService.getCommentsByItem(item));
+        return "commentsList";
+    }
+
+    @GetMapping("/getSize/{item}")
+    @ResponseBody
+    public int getSize(@PathVariable Item item) {
+        return item.getComments().size();
+    }
 }

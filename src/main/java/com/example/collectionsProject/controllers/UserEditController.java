@@ -46,4 +46,10 @@ public class UserEditController {
         userService.editUser(user, username, form);
         return "redirect:/user";
     }
+
+    @PostMapping("block/{user}")
+    public String blockUser(@PathVariable User user) {
+        userService.blockUser(user);
+        return "redirect:/user";
+    }
 }

@@ -1,14 +1,10 @@
 <#import "macroses/common.ftlh" as c>
 <#include "macroses/security.ftlh">
 <@c.page>
-    <#list comments as comment>
-        <div class="card mb-1">
-            <div class="card-body">
-                <h5 class="card-title">${comment.author.username}</h5>
-                <p class="card-text">${comment.comment}</p>
-            </div>
-        </div>
-    </#list>
+
+    <div id="comments">
+    </div>
+
     <#if name != "unknown">
         <div class = "mb-4 mt-4">
             <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse"
@@ -39,4 +35,30 @@
             </form>
         </div>
     </#if>
+    <script>
+        let newSize = 0;
+        let size = ${item.comments?size};
+        function checkSize() {
+            $.ajax({
+                type : 'GET',
+                url : '/getSize/${item.id}',
+                success : function(result) {
+                    newSize = result;
+                }
+            });
+            if (size < newSize) {
+                show();
+                size = newSize;
+            }
+        }
+        function show() {
+            $("#comments").load("/updateComments/${item.id}");
+        }
+        $(document).ready(function(){
+            show();
+            checkSize();
+            setInterval('checkSize()',5000);
+        });
+
+    </script>
 </@c.page>

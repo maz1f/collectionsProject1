@@ -14,6 +14,7 @@
                         <small class="text-muted">Read-Only</small>
                     <#else> <@l.like item currentUser/>
                     </#if>
+                    <a class="btn btn-outline-dark" href="/${item.id}/comments" role="button">${item.comments?size} Comments</a>
                 </div>
             </div>
         <#else>

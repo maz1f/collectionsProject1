@@ -54,4 +54,11 @@ public class UserService {
         }
         userRepo.save(user);
     }
+
+    public void blockUser(User user) {
+        if (user.isActive()) {
+            user.setActive(false);
+        } else user.setActive(true);
+        userRepo.save(user);
+    }
 }
