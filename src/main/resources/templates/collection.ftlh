@@ -4,20 +4,29 @@
 <@c.page>
     <div><h2>${col.name}</h2></div>
     <form action="/filter/${col.id}" method="post">
-        <div class="input-group mb-4 mt-4 w-25">
+        <div class="input-group mb-4 mt-4 w-50">
             <input type="text" class="form-control" name = "tag" placeholder="tag"/>
             <button type="submit" class="btn btn-outline-secondary">Filter</button>
         </div>
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
     </form>
-    <form action="/sortByName/${col.id}/1" method="post">
-        <button type="submit" class="btn btn-outline-secondary">Sort by name</button>
-        <input type="hidden" name="_csrf" value="${_csrf.token}" />
-    </form>
-    <form action="/sortByName/${col.id}/0" method="post">
-        <button type="submit" class="btn btn-outline-secondary">Sort by name desc</button>
-        <input type="hidden" name="_csrf" value="${_csrf.token}" />
-    </form>
+
+
+
+    <div class="row g-2 mb-3">
+        <div class="col-auto">
+                <form action="/sortByName/${col.id}/1" method="post">
+                    <button type="submit" class="btn btn-outline-secondary">Sort by name</button>
+                    <input type="hidden" name="_csrf" value="${_csrf.token}" />
+                </form>
+        </div>
+        <div class="col-auto">
+                <form action="/sortByName/${col.id}/0" method="post">
+                    <button type="submit" class="btn btn-outline-secondary">Sort by name desc</button>
+                    <input type="hidden" name="_csrf" value="${_csrf.token}" />
+                </form>
+        </div>
+    </div>
 
     <#if currentUser?? && (name == col.owner.username || currentUser.isAdmin())>
         <div class = "mb-4">
