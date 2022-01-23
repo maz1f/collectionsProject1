@@ -46,6 +46,6 @@ public class UserController {
         model.addAttribute("collections", collectionService.getCollections(user));
         model.addAttribute("owner", user);
         model.addAttribute("collection", null);
-        return("personalPage");
+        return "personalPage";
     }
 }

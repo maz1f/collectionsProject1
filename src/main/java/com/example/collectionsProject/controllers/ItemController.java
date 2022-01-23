@@ -40,9 +40,6 @@ public class ItemController {
         } else {
             itemService.addItem(item);
         }
-        model.addAttribute("col", col);
-        model.addAttribute("items", itemService.getItems(col));
-        model.addAttribute("item", null);
         return "redirect:/collection/" + col.getId();
     }
 
@@ -53,9 +50,6 @@ public class ItemController {
                              Model model
     ) {
         itemService.deleteItem(item);
-        model.addAttribute("items", itemService.getItems(item.getCollection()));
-        model.addAttribute("col", item.getCollection());
-        model.addAttribute("item", null);
         return "redirect:/collection/" + item.getCollection().getId();
     }
 
@@ -80,9 +74,6 @@ public class ItemController {
             return "itemEditor";
         } else {
             itemService.editItem(currentItem, item);
-            model.addAttribute("col", currentItem.getCollection());
-            model.addAttribute("items", itemService.getItems(currentItem.getCollection()));
-            model.addAttribute("item", null);
             return "redirect:/collection/" + currentItem.getCollection().getId();
         }
 
@@ -119,7 +110,6 @@ public class ItemController {
                            Model model
     ) {
         itemService.like(item, currentUser);
-        String str = request.getHeader("referer");
         return "redirect:" + request.getHeader("referer");
     }
 

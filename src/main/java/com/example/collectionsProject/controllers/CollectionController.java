@@ -49,9 +49,6 @@ public class CollectionController {
             return "collectionEdit";
         } else {
             collectionService.editCollection(col, collection);
-            model.addAttribute("collection", null);
-            model.addAttribute("owner", col.getOwner());
-            model.addAttribute("collections", collectionService.getCollections(col.getOwner()));
             return "redirect:/personalPage/" + col.getOwner().getId();
         }
 
@@ -59,10 +56,8 @@ public class CollectionController {
 
     @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
     @GetMapping("/deleteCollection/{col}")
-    public String deleteCollection(@PathVariable Collection col, Model model) {
+    public String deleteCollection(@PathVariable Collection col) {
         collectionService.deleteCollection(col);
-        model.addAttribute("collections", collectionService.getCollections(col.getOwner()));
-        model.addAttribute("owner", col.getOwner());
         return "redirect:/personalPage/" + col.getOwner().getId();
     }
 

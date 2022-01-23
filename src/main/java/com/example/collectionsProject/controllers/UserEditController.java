@@ -32,9 +32,8 @@ public class UserEditController {
     }
 
     @PostMapping("delete/{user}")
-    public String deleteUser(@PathVariable User user, Model model) {
+    public String deleteUser(@PathVariable User user) {
         userService.deleteUser(user);
-        model.addAttribute("users", userService.getUsers());
         return "redirect:/user";
     }
 
