@@ -1,15 +1,16 @@
 <#import "macroses/common.ftlh" as c>
 <#include "macroses/security.ftlh">
+<#import "spring.ftl" as spring>
 <@c.page>
     <div class="mb-3">
-        <h2>Personal page of ${owner.username}</h2>
+        <h2><@spring.message"personalPageTitle"/> ${owner.username}</h2>
     </div>
     <#if currentUser??>
         <#if owner.equals(currentUser) || currentUser.isAdmin()>
             <div class = "mb-4">
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                         data-bs-target="#addNewCollection" aria-expanded="false" aria-controls="addNewCollection">
-                    Add new collection
+                    <@spring.message"addCol"/>
                 </button>
             </div>
             <div class="collapse <#if collection??>show</#if> mb-4" id = "addNewCollection">
@@ -24,29 +25,29 @@
                                         ${nameError}
                                     </div>
                                 </#if>
-                                <label for="putName">Collection name</label>
+                                <label for="putName"><@spring.message"colName"/></label>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="form-floating">
                                 <input type="text" class="form-control"
                                        value = "<#if collection??>${collection.description}</#if>" name ="description" id="putDescr" />
-                                <label for="putDescr">Collection description</label>
+                                <label for="putDescr"><@spring.message"colDescription"/></label>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="form-floating">
                                 <select class="form-select" name="theme" id="selectTheme">
-                                    <option value="Alcohol">Alcohol</option>
-                                    <option value="Marks">Marks</option>
-                                    <option value="Books">Books</option>
+                                    <option value="Alcohol"><@spring.message"alcohol"/></option>
+                                    <option value="Marks"><@spring.message"marks"/></option>
+                                    <option value="Books"><@spring.message"books"/></option>
                                 </select>
-                                <label for="selectTheme">Collection theme</label>
+                                <label for="selectTheme"><@spring.message"colTheme"/></label>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="form-floating">
-                                <button type="submit" class="btn btn-primary w-25 p-3">Add</button>
+                                <button type="submit" class="btn btn-primary w-25 p-3"><@spring.message"create"/></button>
                             </div>
                         </div>
                     </div>
@@ -67,20 +68,20 @@
                         <p class="card-text"><#noautoesc>${col.getHtmlDescription()}</#noautoesc></p>
                     </div>
                     <div class="card-footer">
-                        <a href="/collection/${col.id}" class="btn btn-dark">Show collection</a>
+                        <a href="/collection/${col.id}" class="btn btn-dark"><@spring.message"showCol"/></a>
                         <#if currentUser??>
                             <#if owner.equals(currentUser) || currentUser.isAdmin()>
-                                <a class="btn btn-outline-dark" href="/collectionEdit/${col.id}" role="button">Edit</a>
-                                <a class="btn btn-outline-dark" href="/deleteCollection/${col.id}" role="button">Delete</a>
-                            <#else><small class="text-muted">Collection size: ${col.items?size}</small>
+                                <a class="btn btn-outline-dark" href="/collectionEdit/${col.id}" role="button"><@spring.message"edit"/></a>
+                                <a class="btn btn-outline-dark" href="/deleteCollection/${col.id}" role="button"><@spring.message"delete"/></a>
+                            <#else><small class="text-muted"><@spring.message"colSize"/>: ${col.items?size}</small>
                             </#if>
-                        <#else><small class="text-muted">Collection size: ${col.items?size}</small>
+                        <#else><small class="text-muted"><@spring.message"colSize"/>: ${col.items?size}</small>
                         </#if>
                     </div>
                 </div>
             </div>
         <#else>
-            <h5>Collection list is empty</h5>
+            <h5><@spring.message"colListEmpty"/></h5>
         </#list>
     </div>
 

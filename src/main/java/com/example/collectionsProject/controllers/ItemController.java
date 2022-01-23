@@ -116,7 +116,7 @@ public class ItemController {
     @GetMapping("/{item}/comments")
     public String showComments(@PathVariable Item item, Model model) {
         model.addAttribute("item", item);
-        return "comments";
+        return "comments.ftlh";
     }
 
     @PostMapping("/comment/{item}")
