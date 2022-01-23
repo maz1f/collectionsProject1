@@ -85,4 +85,9 @@ public class ItemService {
         return this.lastAddedItems;
     }
 
+    public List<Item> getSortByName(Collection collection, Boolean sort) {
+        if (sort) {
+            return itemRepo.getSortByName(collection.getId());
+        } else return itemRepo.getSortByNameDesc(collection.getId());
+    }
 }

@@ -10,6 +10,14 @@
         </div>
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
     </form>
+    <form action="/sortByName/${col.id}/1" method="post">
+        <button type="submit" class="btn btn-outline-secondary">Sort by name</button>
+        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+    </form>
+    <form action="/sortByName/${col.id}/0" method="post">
+        <button type="submit" class="btn btn-outline-secondary">Sort by name desc</button>
+        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+    </form>
 
     <#if currentUser?? && (name == col.owner.username || currentUser.isAdmin())>
         <div class = "mb-4">

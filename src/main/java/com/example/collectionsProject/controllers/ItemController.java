@@ -152,4 +152,11 @@ public class ItemController {
     public int getSize(@PathVariable Item item) {
         return item.getComments().size();
     }
+
+    @PostMapping("/sortByName/{collection}/{sort}")
+    public String sortByName(@PathVariable Collection collection, @PathVariable Boolean sort, Model model) {
+        model.addAttribute("col", collection);
+        model.addAttribute("items", itemService.getSortByName(collection, sort));
+        return "collection";
+    }
 }
