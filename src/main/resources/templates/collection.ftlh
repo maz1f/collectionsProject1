@@ -82,9 +82,8 @@
                             <a class="btn btn-outline-dark" href="/editItem/${item.id}" role="button">Edit</a>
                             <a class="btn btn-outline-dark" href="/deleteItem/${item.id}" role="button">Delete</a>
                         </#if>
-                        <#if name == "unknown">
-                            <small class="text-muted">Read-Only</small>
-                        <#else> <@l.like item currentUser/>
+                        <#if name != "unknown">
+                            <@l.like item currentUser/>
                         </#if>
                         <a class="btn btn-outline-dark" href="/${item.id}/comments" role="button">${item.comments?size} Comments</a>
 

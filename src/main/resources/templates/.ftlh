@@ -24,10 +24,16 @@
         </div>
         <div class="card-body text-dark">
             <p class="card-text"><#noautoesc>${maxSizeCollection.getHtmlDescription()}</#noautoesc></p>
-            <a href="/collection/${maxSizeCollection.id}" class="btn btn-dark">Show collection</a>
         </div>
         <div class="card-footer">
-            Collection size: ${maxSizeCollection.items?size}
+            <div class="row g-2">
+                <div class="col-auto">
+                    <a href="/collection/${maxSizeCollection.id}" class="btn btn-dark">Show collection</a>
+                </div>
+                <div class="col-auto">
+                    <small class="text-muted">Collection size: ${maxSizeCollection.items?size}</small>
+                </div>
+            </div>
         </div>
     </div>
     <#if lastAddedItems??>
