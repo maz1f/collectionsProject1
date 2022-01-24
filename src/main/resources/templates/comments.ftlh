@@ -1,5 +1,6 @@
 <#import "macroses/common.ftlh" as c>
 <#include "macroses/security.ftlh">
+<#import "spring.ftl" as spring>
 <@c.page>
 
     <div id="comments">
@@ -9,7 +10,7 @@
         <div class = "mb-4 mt-4">
             <button class="btn btn-outline-dark" type="button" data-bs-toggle="collapse"
                     data-bs-target="#addNewComment" aria-expanded="false" aria-controls="addNewComment">
-                Add new comment
+                <@spring.message"addComment"/>
             </button>
         </div>
         <div class="collapse mb-4" id = "addNewComment">
@@ -19,14 +20,14 @@
                         <div class="form-floating">
                             <input type="text" class="form-control"
                                    name ="comment" id="putComment" />
-                            <label for="putComment">Your comment</label>
+                            <label for="putComment"><@spring.message"yourComment"/></label>
                             <input type="hidden" name="author" value="${currentUser}" />
                             <input type="hidden" name="item" value="${item}" />
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-floating">
-                            <button type="submit" class="btn btn-dark w-25 p-3">Add comment</button>
+                            <button type="submit" class="btn btn-dark w-25 p-3"><@spring.message"addComment"/></button>
                         </div>
                     </div>
                 </div>
