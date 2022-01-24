@@ -86,7 +86,7 @@
                         <#if name != "unknown">
                             <@l.like item currentUser/>
                         </#if>
-                        <a class="btn btn-outline-dark" href="/${item.id}/comments" role="button">${item.comments?size} <@spring.message"comments"/></a>
+                        <a class="btn btn-outline-dark" href="/${item.id}/comments" role="button"><@spring.message"comments"/> (${item.comments?size})</a>
 
                     </div>
                 </div>

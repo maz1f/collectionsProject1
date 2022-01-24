@@ -1,37 +1,38 @@
 <#import "macroses/common.ftlh" as c>
 <#include "macroses/security.ftlh">
+<#import "spring.ftl" as spring>
 <@c.page>
-    <h3>Users List:</h3>
+    <h3><@spring.message"usersList"/>:</h3>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">User name</th>
-            <th scope="col">Is Admin</th>
-            <th scope="col">Block</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
+            <th scope="col"><@spring.message"username"/></th>
+            <th scope="col"><@spring.message"isAdmin"/></th>
+            <th scope="col"><@spring.message"block"/></th>
+            <th scope="col"><@spring.message"edit"/></th>
+            <th scope="col"><@spring.message"delete"/></th>
         </tr>
         </thead>
         <tbody>
         <#list users as user>
             <tr>
                 <td><a class="btn btn-outline-secondary" href="/personalPage/${user.id}" role="button">${user.username}</a></td>
-                <td><#if user.isAdmin()>yes<#else>no</#if></td>
+                <td><#if user.isAdmin()><@spring.message"yes"/><#else><@spring.message"no"/></#if></td>
                 <td>
                     <form action="/user/block/${user.id}" method="post">
-                        <button type="submit" class="btn btn-outline-secondary"><#if user.isActive()>Block<#else>Unblock</#if></button>
+                        <button type="submit" class="btn btn-outline-secondary"><#if user.isActive()><@spring.message"block"/><#else><@spring.message"unblock"/></#if></button>
                         <input type="hidden" name="_csrf" value="${_csrf.token}" />
                     </form>
                 </td>
                 <td>
                     <form action="/user/${user.id}" method="post">
-                    <button type="submit" class="btn btn-outline-secondary">Edit</button>
+                    <button type="submit" class="btn btn-outline-secondary"><@spring.message"edit"/></button>
                     <input type="hidden" name="_csrf" value="${_csrf.token}" />
                     </form>
                 </td>
                 <td>
                     <form action="/user/delete/${user.id}" method="post">
-                        <button type="submit" class="btn btn-outline-secondary">Delete</button>
+                        <button type="submit" class="btn btn-outline-secondary"><@spring.message"delete"/></button>
                         <input type="hidden" name="_csrf" value="${_csrf.token}" />
                     </form>
                 </td>

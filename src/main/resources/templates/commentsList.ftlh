@@ -1,5 +1,6 @@
+<#import "spring.ftl" as spring>
 <#if comments?size != 0>
-    <h3>${item.name} comments:</h3>
+    <h3><@spring.message"comments"/> ${item.name}:</h3>
     <#list comments as comment>
         <div class="card mb-1">
             <div class="card-body">
@@ -9,6 +10,6 @@
         </div>
     </#list>
     <#else>
-        <h3>${item.name} has no comments</h3>
+        <h3>${item.name} <@spring.message"commentsEmpty"/></h3>
 </#if>
 
