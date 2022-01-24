@@ -27,6 +27,15 @@
                             <a class="nav-link" aria-current="page" href="/user"><@spring.message"usersList"/></a>
                         </li>
                 </#if>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <@spring.message"changeLang"/>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="${'?locale=en'}">EN</a></li>
+                        <li><a class="dropdown-item" href="${'?locale=ru'}">RU</a></li>
+                    </ul>
+                </li>
             </ul>
             <#if name != "unknown">
                 <a class="btn btn-outline-primary me-3 mb-2 mt-2" href="/personalPage/${currentUser.id}" role="button"><@spring.message"personalAcc"/></a>
