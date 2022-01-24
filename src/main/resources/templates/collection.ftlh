@@ -16,16 +16,10 @@
 
     <div class="row g-2 mb-3">
         <div class="col-auto">
-                <form action="/sortByName/${col.id}/1" method="post">
-                    <button type="submit" class="btn btn-outline-secondary"><@spring.message"sortByName"/></button>
-                    <input type="hidden" name="_csrf" value="${_csrf.token}" />
-                </form>
+            <a class="btn btn-outline-secondary" href="/sortByName/${col.id}/1" role="button"><@spring.message"sortByName"/></a>
         </div>
         <div class="col-auto">
-                <form action="/sortByName/${col.id}/0" method="post">
-                    <button type="submit" class="btn btn-outline-secondary"><@spring.message"sortByNameDesc"/></button>
-                    <input type="hidden" name="_csrf" value="${_csrf.token}" />
-                </form>
+            <a class="btn btn-outline-secondary" href="/sortByName/${col.id}/0" role="button"><@spring.message"sortByNameDesc"/></a>
         </div>
     </div>
 
@@ -45,7 +39,7 @@
                                    value = "<#if item??>${item.name}</#if>" name = "name" id="putName" />
                             <#if nameError??>
                                 <div class="invalid-feedback">
-                                    ${nameError}
+                                    <@spring.message"${nameError}"/>
                                 </div>
                             </#if>
                             <label for="putName"><@spring.message"itemName"/></label>

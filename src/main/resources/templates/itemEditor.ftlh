@@ -8,7 +8,7 @@
                    value = "<#if item??>${item.name}<#else>${currentItem.name}</#if>" name="name" id = "editName">
             <#if nameError??>
                 <div class="invalid-feedback">
-                    ${nameError}
+                    <@spring.message"${nameError}"/>
                 </div>
             </#if>
         </div>

@@ -22,7 +22,7 @@
                                        value = "<#if collection??>${collection.name}</#if>" name = "name" id="putName" />
                                 <#if nameError??>
                                     <div class="invalid-feedback">
-                                        ${nameError}
+                                        <@spring.message"${nameError}"/>
                                     </div>
                                 </#if>
                                 <label for="putName"><@spring.message"colName"/></label>

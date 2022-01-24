@@ -8,7 +8,7 @@
                        value = "<#if user??>${user.email}</#if>" name="email"/>
                 <#if emailError??>
                     <div class="invalid-feedback">
-                        ${emailError}
+                        <@spring.message"${emailError}"/>
                     </div>
                 </#if>
             </div>
@@ -19,7 +19,7 @@
                    value = "<#if user??>${user.username}</#if>" name="username"/>
             <#if usernameError??>
                 <div class="invalid-feedback">
-                    ${usernameError}
+                    <@spring.message"${usernameError}"/>
                 </div>
             </#if>
         </div>
@@ -29,7 +29,7 @@
                    name="password"/>
             <#if passwordError??>
                 <div class="invalid-feedback">
-                    ${passwordError}
+                    <@spring.message"${passwordError}"/>
                 </div>
             </#if>
         </div>

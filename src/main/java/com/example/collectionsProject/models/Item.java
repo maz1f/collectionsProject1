@@ -11,7 +11,7 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotBlank(message = "please fill the name")
+    @NotBlank(message = "nameErr")
     private String name;
     private String tag;
     @ManyToOne

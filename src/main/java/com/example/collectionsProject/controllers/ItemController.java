@@ -2,11 +2,13 @@ package com.example.collectionsProject.controllers;
 
 import com.example.collectionsProject.Utils.ControllerUtils;
 import com.example.collectionsProject.models.*;
+import com.example.collectionsProject.services.CollectionService;
 import com.example.collectionsProject.services.CommentService;
 import com.example.collectionsProject.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +24,8 @@ public class ItemController {
     private ItemService itemService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private CollectionService collectionService;
 
     @PreAuthorize("hasAuthority('ADMIN') or #col.owner.username == authentication.name")
     @PostMapping("/addItem/{col}")
@@ -37,10 +41,14 @@ public class ItemController {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errorsMap);
             model.addAttribute("item", item);
+            model.addAttribute("col", col);
+            model.addAttribute("items", collectionService.getItems(col));
+            return "collection";
         } else {
             itemService.addItem(item);
+            return "redirect:/collection/" + col.getId();
         }
-        return "redirect:/collection/" + col.getId();
+
     }
 
     @PreAuthorize("hasAuthority('ADMIN') or #item.collection.owner.username == authentication.name")
@@ -143,10 +151,11 @@ public class ItemController {
         return item.getComments().size();
     }
 
-    @PostMapping("/sortByName/{collection}/{sort}")
-    public String sortByName(@PathVariable Collection collection, @PathVariable Boolean sort, Model model) {
+    @GetMapping("/sortByName/{collection}/{sort}")
+    public String getSorted(@PathVariable Collection collection, @PathVariable Boolean sort, Model model) {
         model.addAttribute("col", collection);
         model.addAttribute("items", itemService.getSortByName(collection, sort));
         return "collection";
     }
+
 }
