@@ -1,4 +1,4 @@
-<#import "spring.ftl" as spring>
+<#import "/spring.ftl" as spring>
 <#macro login path isRegistration>
     <form action="${path}" method="post">
         <#if isRegistration>

@@ -1,6 +1,6 @@
 <#include "security.ftlh">
 <#import "login.ftlh" as l>
-<#import "spring.ftl" as spring>
+<#import "/spring.ftl" as spring>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/"><@spring.message"myCollection"/></a>
