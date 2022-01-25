@@ -33,12 +33,12 @@ public class CollectionService {
         collectionsRepo.delete(collection);
     }
 
-    public Iterable<Collection> getAllColection() {
+    public Iterable<Collection> getAllCollections() {
         return collectionsRepo.findAll();
     }
 
-    public Collection getMaxSizeCollction() {
-        Iterable<Collection> collections = getAllColection();
+    public Collection getMaxSizeCollection() {
+        Iterable<Collection> collections = getAllCollections();
         Collection maxSize = collections.iterator().next();
         for (Collection col : collections) {
             if (col.getItems().size() > maxSize.getItems().size())

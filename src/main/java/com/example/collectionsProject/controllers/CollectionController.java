@@ -63,7 +63,7 @@ public class CollectionController {
 
     @GetMapping("/allCollections")
     public String showAllCollection(Model model){
-        model.addAttribute("collections", collectionService.getAllColection());
+        model.addAttribute("collections", collectionService.getAllCollections());
         return "allCollections";
     }
 }

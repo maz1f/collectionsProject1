@@ -19,7 +19,7 @@ public class MainPageController {
 
     @GetMapping("/")
     public String mainPage(Model model){
-        model.addAttribute("maxSizeCollection", collectionService.getMaxSizeCollction());
+        model.addAttribute("maxSizeCollection", collectionService.getMaxSizeCollection());
         model.addAttribute("tags", tagService.getAllTags());
         model.addAttribute("lastAddedItems", itemService.getLastAddedItems());
         return "";
