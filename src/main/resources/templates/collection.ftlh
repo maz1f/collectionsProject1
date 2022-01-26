@@ -12,8 +12,6 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
     </form>
 
-
-
     <div class="row g-2 mb-3">
         <div class="col-auto">
             <a class="btn btn-outline-secondary" href="/sortByName/${col.id}/1" role="button"><@spring.message"sortByName"/></a>

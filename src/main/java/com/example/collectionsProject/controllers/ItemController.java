@@ -128,15 +128,11 @@ public class ItemController {
         return "comments";
     }
 
-    @PostMapping("/comment/{item}")
-    public String comment(@PathVariable Item item,
-                          @AuthenticationPrincipal User currentUser,
-                          @RequestParam String comment,
-                          HttpServletRequest request
-    ) {
-
-        commentService.addComment(comment, currentUser, item);
-        return "redirect:" + request.getHeader("referer");
+    @GetMapping("/sortByName/{collection}/{sort}")
+    public String getSorted(@PathVariable Collection collection, @PathVariable Boolean sort, Model model) {
+        model.addAttribute("col", collection);
+        model.addAttribute("items", itemService.getSortByName(collection, sort));
+        return "collection";
     }
 
 }
