@@ -5,7 +5,7 @@
     <form action="/collectionEdit/${col.id}" method="post">
         <div class="mb-3">
             <label for="editName" class="form-label"><@spring.message"colName"/></label>
-            <input type="text" class="form-control w-25 ${(nameError??)?string('is-invalid','')}"
+            <input type="text" class="form-control w-75 ${(nameError??)?string('is-invalid','')}"
                    value = "<#if collection??>${collection.name}<#else>${col.name}</#if>" name="name" id = "editName">
             <#if nameError??>
                 <div class="invalid-feedback">
@@ -15,7 +15,7 @@
         </div>
         <div class = "mb-3">
             <label for="editDescription" class="form-label"><@spring.message"colDescription"/></label>
-            <input type="text" class="form-control w-25"
+            <input type="text" class="form-control w-75"
                    value = "<#if collection??><#noautoesc>${collection.description}</#noautoesc><#else><#noautoesc>${col.description}</#noautoesc></#if>"
                    name="description" id ="editDescription">
         </div>

@@ -19,4 +19,5 @@ public interface ItemRepo extends CrudRepository<Item, Long> {
     List<Item> getSortByName(Long collection_id);
     @Query(value = "SELECT * FROM Item where item.collection_id = ? ORDER BY item.name desc", nativeQuery = true)
     List<Item> getSortByNameDesc(Long collection_id);
+    Item getItemById(Long id);
 }

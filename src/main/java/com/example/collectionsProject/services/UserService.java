@@ -61,4 +61,8 @@ public class UserService {
         } else user.setActive(true);
         userRepo.save(user);
     }
+
+    public User getUserByName(String name) {
+        return userRepo.findByUsername(name);
+    }
 }

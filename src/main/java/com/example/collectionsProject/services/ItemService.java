@@ -90,4 +90,8 @@ public class ItemService {
             return itemRepo.getSortByName(collection.getId());
         } else return itemRepo.getSortByNameDesc(collection.getId());
     }
+
+    public Item getItemById(Long id) {
+        return itemRepo.getItemById(id);
+    }
 }

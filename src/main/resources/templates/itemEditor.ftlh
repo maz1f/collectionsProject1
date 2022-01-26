@@ -4,7 +4,7 @@
     <form action="/editItem/${currentItem.id}" method="post">
         <div class="mb-3">
             <label for="editName" class="form-label"><@spring.message"itemName"/></label>
-            <input type="text" class="form-control w-25 ${(nameError??)?string('is-invalid','')}"
+            <input type="text" class="form-control w-50 ${(nameError??)?string('is-invalid','')}"
                    value = "<#if item??>${item.name}<#else>${currentItem.name}</#if>" name="name" id = "editName">
             <#if nameError??>
                 <div class="invalid-feedback">
@@ -14,7 +14,7 @@
         </div>
         <div class = "mb-3">
             <label for="editTag" class="form-label"><@spring.message"itemTag"/></label>
-            <input type="text" class="form-control w-25"
+            <input type="text" class="form-control w-50"
                    value = "<#if item??>${item.tag}<#else>${currentItem.tag}</#if>"
                    name="tag" id ="editTag">
         </div>

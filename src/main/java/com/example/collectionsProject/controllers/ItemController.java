@@ -124,6 +124,7 @@ public class ItemController {
     @GetMapping("/{item}/comments")
     public String showComments(@PathVariable Item item, Model model) {
         model.addAttribute("item", item);
+        model.addAttribute("comments", commentService.getCommentsByItem(item));
         return "comments";
     }
 
@@ -136,26 +137,6 @@ public class ItemController {
 
         commentService.addComment(comment, currentUser, item);
         return "redirect:" + request.getHeader("referer");
-    }
-
-    @GetMapping("/updateComments/{item}")
-    public String updateComments(@PathVariable Item item, Model model) {
-        model.addAttribute("item", item);
-        model.addAttribute("comments", commentService.getCommentsByItem(item));
-        return "commentsList";
-    }
-
-    @GetMapping("/getSize/{item}")
-    @ResponseBody
-    public int getSize(@PathVariable Item item) {
-        return item.getComments().size();
-    }
-
-    @GetMapping("/sortByName/{collection}/{sort}")
-    public String getSorted(@PathVariable Collection collection, @PathVariable Boolean sort, Model model) {
-        model.addAttribute("col", collection);
-        model.addAttribute("items", itemService.getSortByName(collection, sort));
-        return "collection";
     }
 
 }
