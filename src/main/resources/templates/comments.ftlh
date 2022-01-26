@@ -4,19 +4,15 @@
 <@c.page>
 
     <div id="comments">
-        <#if comments?size != 0>
-            <h3><@spring.message"comments"/> ${item.name}:</h3>
-            <#list comments as comment>
-                <div class="card mb-1">
-                    <div class="card-body">
-                        <h5 class="card-title">${comment.author.username}</h5>
-                        <p class="card-text">${comment.comment}</p>
-                    </div>
+        <h3><@spring.message"comments"/> ${item.name}:</h3>
+        <#list comments as comment>
+            <div class="card mb-1">
+                <div class="card-body">
+                    <h5 class="card-title">${comment.author.username}</h5>
+                    <p class="card-text">${comment.comment}</p>
                 </div>
-            </#list>
-        <#else>
-            <h3>${item.name} <@spring.message"commentsEmpty"/></h3>
-        </#if>
+            </div>
+        </#list>
     </div>
 
     <#if name != "unknown">
